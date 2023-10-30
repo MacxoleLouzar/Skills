@@ -2,12 +2,15 @@ require('dotenv').config()
 const express = require("express"); 
 const cors = require("cors"); 
 const connect = require("./DB/DbConnect.js"); 
+const routeDept = require('../server/Routes/DepartmentRoutes.js')
 
 const app = express()
 app.use(express.json())
 app.use(cors())
 
 const port = process.env.PORT || 1001
+
+app.use("/api/dep/", routeDept);
 
 app.listen(port, (req, res) => {
     console.log(`PORT is listen at http://localhost:${port}`)

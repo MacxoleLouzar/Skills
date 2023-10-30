@@ -1,1 +1,16 @@
 GET http://localhost:1001
+
+#### Departments
+GET http://localhost:1001/api/dep/
+
+####
+GET http://localhost:1001/api/dep/1
+
+###
+POST http://localhost:1001/api/dep/
+
+###
+PUT http://localhost:1001/api/dep/1
+
+###
+DELETE http://localhost:1001/api/dep/1
