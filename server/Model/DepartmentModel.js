@@ -1,4 +1,4 @@
-const connect = require("./DB/DbConnect.js");
+const connect = require("../DB/DbConnect");
 
 const CreateDepartmentModel = async (deptData) => {
   const query =
@@ -23,4 +23,46 @@ const GetDepartmentsModel = async () => {
   }
 };
 
-module.exports = { CreateDepartmentModel, GetDepartmentsModel };
+const GetSingleDeptModel = async (depId) => {
+    const query = "select FROM Departments WHERE id = $1";
+    const value = [depId]
+
+    try {
+        const result = await connect.query(query, value)
+        return result.rows[0]
+        
+    } catch (error) {
+        throw error
+    }
+}
+
+const UpdateDepartmentModel = async (depId, updateDept) => {
+    const query = 'UPDATE Departments SET dept_name = $1, dept_address = $2 WHERE id = $3 RETURNING *'; 
+    const values = [updateDept.dept_name, updateDept.dept_address, depId];
+
+    try {
+        const result = connect.query(query, values)
+        return (await result).rows[0]
+    } catch (error) {
+        throw error;
+    }
+}
+
+const DeleteSingleDeptModel = async (depId) => {
+  const query = "DELETE FROM Departments WHERE id = $1";
+  const value = [depId];
+
+  try {
+    const result = await connect.query(query, value);
+    return result.rows[0];
+  } catch (error) {
+    throw error;
+  }
+};
+module.exports = {
+  CreateDepartmentModel,
+  GetDepartmentsModel,
+  GetSingleDeptModel,
+  UpdateDepartmentModel,
+  DeleteSingleDeptModel
+};
