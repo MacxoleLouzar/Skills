@@ -1,21 +1,21 @@
-const express = require('express')
-const {GetDepartmentsCtrl, AddDepartmentCtrl} = require('../Controller/DpartmentController')
+const express = require("express");
+const {
+  GetDepartmentsCtrl,
+  AddDepartmentCtrl,
+  GetOneDepartmentCrl,
+  UpdateDepartmentCTRL,
+  DeleteDepartmentCTRL,
+} = require("../Controller/DpartmentController");
 const route = express.Router();
 
-route.get('/', GetDepartmentsCtrl)
+route.get("/", GetDepartmentsCtrl);
 
-route.get("/:id", (req, res) => {
-  res.status(200).json({ data: "Get single department" });
-});
+route.get("/:id", GetOneDepartmentCrl);
 
 route.post("/", AddDepartmentCtrl);
 
-route.put("/:id", (req, res) => {
-  res.status(200).json({ data: "Update department" });
-});
+route.put("/:id", UpdateDepartmentCTRL);
 
-route.delete("/:id", (req, res) => {
-  res.status(200).json({ data: "Delete department" });
-});
+route.delete("/:id", DeleteDepartmentCTRL);
 
 module.exports = route;
