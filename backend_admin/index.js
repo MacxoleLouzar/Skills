@@ -10,8 +10,8 @@ app.use(cors())
 
 const port = process.env.PORT || 1002
 
-app.listen('', (req, res) => {
-    res.json({message: `Port is running at http://localhost:${port}  for Admin`})
+app.listen(port, (req, res) => {
+  console.log(` Admin Port is running at http://localhost:${port}`)
 })
 
 app.get('/', (req, res) => {
