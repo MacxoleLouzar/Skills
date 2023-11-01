@@ -54,21 +54,35 @@ DELETE http://localhost:1001/api/job/9
 ####============================ Employee =========================================
 GET http://localhost:1001/api/emp
 ### Get Employee
-GET http://localhost:1001/api/emp/4
+GET http://localhost:1001/api/emp/3
 
 ### Add a Employee
-POST http://localhost:1001/api/emp/
+POST http://localhost:1001/api/emp
 Content-Type: application/json
 
 {
-    
+    "emp_name": "Zolani",
+    "emp_surnme": "Ngxatha",
+    "emp_DOB": "2000-12-01",
+    "emp_email": "zoe@gmail.com",
+    "emp_hired_date": "2021-10-31",
+    "emp_Salary": 28000.00,
+    "dept_id": 3,
+    "rj_id": 2
 }
 ### Edit Employee
-PUT http://localhost:1001/api/emp/8
+PUT http://localhost:1001/api/emp/5
 Content-Type: application/json
 
 {
-    
+    "emp_name": "Aphelele",
+    "emp_surnme": "Fassi",
+    "emp_DOB": "2000-12-01T10:00:00Z",
+    "emp_email": "zoe@gmail.com",
+    "emp_hired_date": "2021-10-31T10:00:00Z",
+    "emp_Salary": "28000.00",
+    "dept_id": 3,
+    "rj_id": 2
 }
 ### Delete Employee
-DELETE http://localhost:1001/api/emp/9
+DELETE http://localhost:1001/api/emp/7

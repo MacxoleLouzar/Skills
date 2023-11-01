@@ -1,25 +1,21 @@
 const express = require("express");
-
+const {
+  AddEmployeeCtrl,
+  GetOneEmployeeCrl,
+  GetEmployeesCtrl,
+  UpdateEmployeeCTRL,
+  DeleteEmployeeCTRL,
+} = require("../Controller/EmployeeController");
 const route = express.Router();
 
-route.get("/", (req, res) => {
-    res.json({message: "All Employees"})
-});
+route.get("/", GetEmployeesCtrl);
 
-route.get("/:id", (req, res) => {
-  res.json({ message: "Get One Employee" });
-});
+route.get("/:id", GetOneEmployeeCrl);
 
-route.post("/", (req, res) => {
-  res.json({ message: "Add Employees" });
-});
+route.post("/", AddEmployeeCtrl);
 
-route.put("/:id", (req, res) => {
-  res.json({ message: "Update Employees" });
-});
+route.put("/:id", UpdateEmployeeCTRL);
 
-route.delete("/:id", (req, res) => {
-  res.json({ message: "Delete Employees" });
-});
+route.delete("/:id", DeleteEmployeeCTRL);
 
 module.exports = route;

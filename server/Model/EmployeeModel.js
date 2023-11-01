@@ -6,9 +6,9 @@ const CreateEmployeeModel = async (empData) => {
   const values = [
     empData.emp_name,
     empData.emp_surnme,
+    empData.emp_DOB,
     empData.emp_email,
     empData.emp_hired_date,
-    empData.emp_DOB,
     empData.emp_Salary,
     empData.dept_id,
     empData.rj_id,
@@ -50,12 +50,11 @@ const UpdateEmployeeModel = async (empId, updateEmp) => {
   const values = [
     updateEmp.emp_name,
     updateEmp.emp_surnme,
+    updateEmp.emp_DOB,
     updateEmp.emp_email,
     updateEmp.emp_hired_date,
-    updateEmp.emp_DOB,
     updateEmp.emp_Salary,
     updateEmp.dept_id,
-    updateEmp.empId,
     updateEmp.rj_id,
     empId,
   ];
