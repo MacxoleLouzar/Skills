@@ -2,7 +2,7 @@ const connect = require("../DB/DbConnect");
 
 const CreateJobRolestModel = async (jobData) => {
   const query =
-    "Insert into JobRoles(rj_title, rj_Description) VALUES($1, $2) RETURNING *";
+    "Insert into JobRoles(rj_title, rj_description) VALUES($1, $2) RETURNING *";
   const values = [jobData.rj_title, jobData.rj_Description];
 
   try {
@@ -37,7 +37,7 @@ const GetJobRoleModel = async (Id) => {
 
 const UpdateJobRoleModel = async (Id, updateJob) => {
   const query =
-    "UPDATE JobRoles SET rj_title = $1, rj_Description = $2 WHERE rj_id = $3 RETURNING *";
+    "UPDATE JobRoles SET rj_title = $1, rj_description = $2 WHERE rj_id = $3 RETURNING *";
   const values = [updateJob.rj_title, updateJob.rj_Description, Id];
 
   try {

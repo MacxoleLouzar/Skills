@@ -30,21 +30,45 @@ DELETE http://localhost:1001/api/dep/5
 GET http://localhost:1001/api/job
 
 ### Get Job
-GET http://localhost:1001/api/job/2
+GET http://localhost:1001/api/job/4
 
 ### Add a Job
-POST http://localhost:1001/api/job
+POST http://localhost:1001/api/job/
 Content-Type: application/json
 
 {
-     
+    "rj_title": "Senior Designer",
+    "rj_Description": "Oversee Designs from the team"
 }
-### Edit Department
-PUT http://localhost:1001/api/job/5
+### Edit Job
+PUT http://localhost:1001/api/job/8
 Content-Type: application/json
 
 {
-     
+    "rj_title": "Senior Designer",
+    "rj_Description": "Oversee Designs from the team"
 }
-### Delete Department
-DELETE http://localhost:1001/api/job/5
+### Delete Job
+DELETE http://localhost:1001/api/job/9
+
+####============================ Employee =========================================
+GET http://localhost:1001/api/emp
+### Get Employee
+GET http://localhost:1001/api/emp/4
+
+### Add a Employee
+POST http://localhost:1001/api/emp/
+Content-Type: application/json
+
+{
+    
+}
+### Edit Employee
+PUT http://localhost:1001/api/emp/8
+Content-Type: application/json
+
+{
+    
+}
+### Delete Employee
+DELETE http://localhost:1001/api/emp/9

@@ -37,8 +37,10 @@ const UpdateJobCTRL = async (req, res) => {
   const _id = req.params.id;
   const job = req.body;
   try {
-    const jobrole = await JobsModel.UpdateJobRoleModel(_id, job);
-    res.status(200).json({ data: jobrole, message: "Updated successful" });
+    const Job_role = await JobsModel.UpdateJobRoleModel(_id, job);
+    res
+      .status(200)
+      .json({ data: Job_role, message: "Updated successful" });
   } catch (error) {
     res.status(500).json({ message: "Error Getting Job", error });
   }

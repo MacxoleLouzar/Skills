@@ -4,6 +4,7 @@ const cors = require("cors");
 const connect = require("./DB/DbConnect"); 
 const routeDept = require('../server/Routes/DepartmentRoutes.js')
 const routeJobRoles = require('../server/Routes/JobRolesRoutes')
+const routeEmployee = require('../server/Routes/EmployeeRoutes')
 
 const app = express()
 app.use(express.json())
@@ -13,6 +14,7 @@ const port = process.env.PORT || 1001
 
 app.use("/api/dep/", routeDept);
 app.use("/api/job/", routeJobRoles);
+app.use("/api/emp/", routeEmployee);
 
 app.listen(port, (req, res) => {
     console.log(`PORT is listen at http://localhost:${port}`)
