@@ -4,13 +4,24 @@ GET http://localhost:1001
 GET http://localhost:1001/api/dep
 
 ####
-GET http://localhost:1001/api/dep/1
+GET http://localhost:1001/api/dep/6
 
 ###
-POST http://localhost:1001/api/dep/
+POST http://localhost:1001/api/dep
+Content-Type: application/json
+
+{
+     "dept_name": "Marketing",
+    "dept_address": "Campus"
+}
 
 ###
-PUT http://localhost:1001/api/dep/1
+PUT http://localhost:1001/api/dep/5
+Content-Type: application/json
 
+{
+     "dept_name": "Cyber Security",
+    "dept_address": "HQ"
+}
 ###
-DELETE http://localhost:1001/api/dep/1
+DELETE http://localhost:1001/api/dep/5

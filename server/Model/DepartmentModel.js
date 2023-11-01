@@ -24,32 +24,7 @@ const GetDepartmentsModel = async () => {
 };
 
 const GetSingleDeptModel = async (depId) => {
-    const query = "select FROM Departments WHERE id = $1";
-    const value = [depId]
-
-    try {
-        const result = await connect.query(query, value)
-        return result.rows[0]
-        
-    } catch (error) {
-        throw error
-    }
-}
-
-const UpdateDepartmentModel = async (depId, updateDept) => {
-    const query = 'UPDATE Departments SET dept_name = $1, dept_address = $2 WHERE id = $3 RETURNING *'; 
-    const values = [updateDept.dept_name, updateDept.dept_address, depId];
-
-    try {
-        const result = connect.query(query, values)
-        return (await result).rows[0]
-    } catch (error) {
-        throw error;
-    }
-}
-
-const DeleteSingleDeptModel = async (depId) => {
-  const query = "DELETE FROM Departments WHERE id = $1";
+  const query = "SELECT * FROM Departments WHERE dept_id = $1";
   const value = [depId];
 
   try {
@@ -59,10 +34,34 @@ const DeleteSingleDeptModel = async (depId) => {
     throw error;
   }
 };
+
+const UpdateDepartmentModel = async (depId, updateDept) => {
+  const query =
+    "UPDATE Departments SET dept_name = $1, dept_address = $2 WHERE dept_id = $3 RETURNING *";
+  const values = [updateDept.dept_name, updateDept.dept_address, depId];
+
+  try {
+    const result = await connect.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    throw error;
+  }
+};
+
+const DeleteSingleDeptModel = async (depId) => {
+  const query = "DELETE FROM Departments WHERE dept_id = $1";
+  const value = [depId];
+
+  try {
+    await connect.query(query, value);
+  } catch (error) {
+    throw error;
+  }
+};
 module.exports = {
   CreateDepartmentModel,
   GetDepartmentsModel,
   GetSingleDeptModel,
   UpdateDepartmentModel,
-  DeleteSingleDeptModel
+  DeleteSingleDeptModel,
 };

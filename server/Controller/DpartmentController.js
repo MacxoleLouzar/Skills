@@ -22,11 +22,11 @@ const GetDepartmentsCtrl = async (req, res) => {
 };
 
 const GetOneDepartmentCrl = async (req, res) => {
-  const { _id } = req.params.id;
+  const _id = req.params.id;
   try {
-    const department = await DepartmentModel.GetSingleDeptModel(_id);
-    if (department) {
-      res.status(200).json({ data: department });
+    const dept = await DepartmentModel.GetSingleDeptModel(_id);
+    if (dept) {
+      res.status(200).json({ data: dept, message: "Data for one Department" });
     } else {
       res.status(404).json({ message: "Data not found" });
     }
@@ -38,10 +38,9 @@ const GetOneDepartmentCrl = async (req, res) => {
 const UpdateDepartmentCTRL = async (req, res) => {
   const _id = req.params.id;
   const dept = req.body;
-
   try {
     const department = await DepartmentModel.UpdateDepartmentModel(_id, dept);
-    res.status(200).json({ data: department });
+    res.status(200).json({ data: department, message: "Updated successful" });
   } catch (error) {
     res.status(500).json({ message: "Error Getting Deptmemnt", error });
   }
@@ -50,8 +49,8 @@ const UpdateDepartmentCTRL = async (req, res) => {
 const DeleteDepartmentCTRL = async (req, res) => {
   const _id = req.params.id;
   try {
-    const department = await DepartmentModel.UpdateDepartmentModel(_id);
-    res.status(200).json({ data: department });
+    await DepartmentModel.DeleteSingleDeptModel(_id);
+    res.status(200).json({ message: "Department Deleted" });
   } catch (error) {
     res.status(500).json({ message: "Error Getting Deptmemnt", error });
   }
