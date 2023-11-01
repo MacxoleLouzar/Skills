@@ -1,0 +1,11 @@
+####
+GET http://localhost:1002
+
+###
+GET http://localhost:1002/api/admin
+
+###
+POST http://localhost:1002/api/admin/login
+
+###
+POST http://localhost:1002/api/admin/register
