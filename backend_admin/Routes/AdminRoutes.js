@@ -1,17 +1,11 @@
 import express from "express";
-
+import { getAllAdmins, registerAdmin, loginAdmin} from  '../controller/AdminController.js'
 const route = express.Router();
 
-route.get("/", (req, res) => {
-  res.status(200).json({ message: "Get All Admin" });
-});
+route.get("/", getAllAdmins);
 
-route.post("/login", (req, res) => {
-  res.status(200).json({ message: "login Admin" });
-});
+route.post("/login", loginAdmin);
 
-route.post("/register", (req, res) => {
-  res.status(200).json({ message: "register Admin" });
-});
+route.post("/register", registerAdmin);
 
 export default route;
