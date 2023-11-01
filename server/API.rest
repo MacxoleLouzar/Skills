@@ -1,21 +1,20 @@
 GET http://localhost:1001
 
-#### Departments
+####============================ Departments =========================================
 GET http://localhost:1001/api/dep
-
 ####
 GET http://localhost:1001/api/dep/6
 
-###
+### Add a Department
 POST http://localhost:1001/api/dep
 Content-Type: application/json
 
 {
-     "dept_name": "Marketing",
+     "dept_name": "Data Science",
     "dept_address": "Campus"
 }
 
-###
+### Edit Department
 PUT http://localhost:1001/api/dep/5
 Content-Type: application/json
 
@@ -23,5 +22,29 @@ Content-Type: application/json
      "dept_name": "Cyber Security",
     "dept_address": "HQ"
 }
-###
+### Delete Department
 DELETE http://localhost:1001/api/dep/5
+
+
+####============================ JobRoles =========================================
+GET http://localhost:1001/api/job
+
+### Get Job
+GET http://localhost:1001/api/job/2
+
+### Add a Job
+POST http://localhost:1001/api/job
+Content-Type: application/json
+
+{
+     
+}
+### Edit Department
+PUT http://localhost:1001/api/job/5
+Content-Type: application/json
+
+{
+     
+}
+### Delete Department
+DELETE http://localhost:1001/api/job/5
