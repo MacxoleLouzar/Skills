@@ -1,24 +1,22 @@
 const express = require("express");
+
+const {
+  AddJobCtrl,
+  GetJobCtrl,
+  GetOneJobCrl,
+  UpdateJobCTRL,
+  DeleteJobCTRL,
+} = require("../Controller/JobsController");
 const route = express.Router();
 
-route.get("/", (req, res) => {
-    res.json({message: "Get All Roles"})
-});
+route.get("/", GetJobCtrl);
 
-route.get("/:id", (req, res) => {
-  res.json({ message: "Get Single Roles" });
-});
+route.get("/:id", GetOneJobCrl);
 
-route.post("/", (req, res) => {
-  res.json({ message: "Add Roles" });
-});
+route.post("/", AddJobCtrl);
 
-route.put("/:id", (req, res) => {
-  res.json({ message: "Update Roles" });
-});
+route.put("/:id", UpdateJobCTRL);
 
-route.delete("/:id", (req, res) => {
-  res.json({ message: "Delete Roles" });
-});
+route.delete("/:id", DeleteJobCTRL);
 
 module.exports = route;
