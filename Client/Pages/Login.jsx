@@ -1,23 +1,22 @@
-import React, { useReducer }  from "react";
+import React, { useReducer } from "react";
 
 const initialState = {
-    email: '',
-    password: '',
+  email: "",
+  password: "",
 };
 
 const reducer = (state, action) => {
-    return {...state}
-}
-
+  return { ...state, [action.input]: action.value };
+};
 
 const Login = () => {
-const [state, dispatch]= useReducer(reducer, initialState)
-
-    function onChange(e) {
-        const action = {
-            
-        }
-    }
+  const [state, dispatch] = useReducer(reducer, initialState);
+  console.log(state);
+  function onChange(e) {
+    const { name, value } = e.target;
+    const action = { input: name, value: value };
+    dispatch(action);
+  }
   return (
     <>
       <div className="hero min-h-screen bg-base-200">
@@ -37,9 +36,11 @@ const [state, dispatch]= useReducer(reducer, initialState)
                   <span className="label-text">Email</span>
                 </label>
                 <input
+                  name="email"
                   type="email"
                   placeholder="email"
                   className="input input-bordered"
+                  onChange={onChange}
                   required
                 />
               </div>
@@ -48,9 +49,11 @@ const [state, dispatch]= useReducer(reducer, initialState)
                   <span className="label-text">Password</span>
                 </label>
                 <input
+                  name="password"
                   type="password"
                   placeholder="password"
                   className="input input-bordered"
+                  onChange={onChange}
                   required
                 />
                 <label className="label">
