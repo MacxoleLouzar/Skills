@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import Header from "../Components/header";
+import HomeWall from "../Components/HomeWall";
 
 const Landing = () => {
   return (
-    <div>Landing</div>
-  )
-}
+    <div>
+          <Header />
+          <HomeWall/>
+    </div>
+  );
+};
 
-export default Landing
+export default Landing;
