@@ -30,6 +30,10 @@ const AppState = ({ children }) => {
    const updateDepartment= (data) => {
      setDepartment(data);
    };
+    const removeDepartment = (dep) => {
+      let dept = departments.filter((x) => x._id !== dep.id);
+      setDepartment(dept);
+    };
 
   const addPositing = (data) => {
     setPosition([data]);
@@ -46,6 +50,7 @@ const AppState = ({ children }) => {
         departments,
         addDepartment,
         updateDepartment,
+        removeDepartment,
         positions,
         addPositing,
       }}

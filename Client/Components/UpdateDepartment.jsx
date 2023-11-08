@@ -32,7 +32,7 @@ const UpdateDepartment = () => {
           setDeptAddress(data.deptAddress);
           updateDepartment(data);
           toast.success("Succeesful Update");
-          navigate("/employees");
+          navigate("/departments");
         })
         .catch((error) => {
           toast.error("Server Error", error);
@@ -48,6 +48,7 @@ const UpdateDepartment = () => {
       >
         +
       </button> */}
+      
 
       {showModal ? (
         <>
