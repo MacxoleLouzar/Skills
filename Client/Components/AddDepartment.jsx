@@ -1,7 +1,46 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import AppContext from "../Context/AppContext";
 
-const AdminAdd = () => {
+const AddDepartment = () => {
+  const { addDepartment } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+
+  const [deptName, setDepartmentName] = useState("");
+  const [deptAddress, setDeptAddress] = useState("");
+
+  const AddDept = (e) => {
+    e.preventDefault();
+    if (!deptName || !deptAddress) {
+      toast.error("All fields are required");
+      return;
+    }
+
+    fetch("http://localhost:1001/api/dep", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ deptName, deptAddress }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data?.error) {
+          toast.error(data.error);
+          return;
+        }
+        addDepartment(data);
+        toast.success("Succeesful Added");
+        navigate("/employees");
+      })
+      .catch((error) => {
+        toast.error("Server Error", error);
+      });
+  };
+
   return (
     <div>
       <button
@@ -39,11 +78,15 @@ const AdminAdd = () => {
                       type="text"
                       placeholder="Department Name"
                       className="input input-bordered w-full max-w-xs"
+                      value={deptName}
+                      onChange={(e) => setDepartmentName(e.target.value)}
                     />
                     <input
                       type="text"
                       placeholder="Department Address"
                       className="input input-bordered w-full max-w-xs"
+                      value={deptAddress}
+                      onChange={(e) => setDeptAddress(e.target.value)}
                     />
                   </form>
                 </div>
@@ -56,7 +99,12 @@ const AdminAdd = () => {
                     >
                       Close
                     </button>
-                    <button className="btn btn-sm btn-neutral">Submit</button>
+                    <button
+                      onClick={AddDept}
+                      className="btn btn-sm btn-neutral"
+                    >
+                      Submit
+                    </button>
                   </div>
                 </div>
               </div>
@@ -69,4 +117,4 @@ const AdminAdd = () => {
   );
 };
 
-export default AdminAdd;
+export default AddDepartment;

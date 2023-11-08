@@ -1,4 +1,6 @@
 import React from "react";
+import AddDepartment from "../Components/AddDepartment";
+
 
 const DepartmentCp = ({ dep }) => {
   return (
@@ -10,6 +12,7 @@ const DepartmentCp = ({ dep }) => {
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-hidden">
               <table className="min-w-full">
+                <AddDepartment/>
                 <thead className="bg-gray-200 border-b">
                   <tr className="flex">
                     <th

@@ -1,4 +1,5 @@
 import React from "react";
+import AddEmployee from "../Components/AddEmployee";
 
 const EmployeesCp = ({ emp }) => {
   return (
@@ -9,6 +10,7 @@ const EmployeesCp = ({ emp }) => {
         <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-hidden">
+              <AddEmployee />
               <table className="min-w-full">
                 <thead className="bg-gray-200 border-b">
                   <tr className="flex">
@@ -71,28 +73,28 @@ const EmployeesCp = ({ emp }) => {
                 <tbody>
                   <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-base-200 flex">
                     <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-                      {emp.emp_name}
+                      {emp?.emp_name}
                     </td>
                     <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-                      {emp.emp_surname}
+                      {emp?.emp_surname}
                     </td>
                     <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-                      {emp.emp_email}
+                      {emp?.emp_email}
                     </td>
                     <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-                      {emp.emp_salary}
+                      {emp?.emp_salary}
                     </td>
                     <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-                      {emp.dept_id}
+                      {emp?.dept_id}
                     </td>
                     <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-                      {emp.rj_id}
+                      {emp?.rj_id}
                     </td>
                     <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-                      {emp.emp_hired_date}
+                      {emp?.emp_hired_date}
                     </td>
                     <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-                      {emp.emp_dob}
+                      {emp?.emp_dob}
                     </td>
                     <td className="text-sm px-6 py-4 whitespace-nowrap flex-1">
                       <div className="btn-group">

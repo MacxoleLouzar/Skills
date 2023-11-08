@@ -8,7 +8,7 @@ const AppState = ({ children }) => {
   const [positions, setPosition] = useState([]);
 
   const addEmployee = (emp) => {
-    setEmployee(emp);
+    setEmployee([emp]);
   };
 
   const updateEmployee = (data) => {
@@ -27,6 +27,10 @@ const AppState = ({ children }) => {
     setDepartment([data]);
   };
 
+   const updateDepartment= (data) => {
+     setDepartment(data);
+   };
+
   const addPositing = (data) => {
     setPosition([data]);
   };
@@ -40,8 +44,9 @@ const AppState = ({ children }) => {
         updateEmployee,
         removeEmployee,
         departments,
-        positions,
         addDepartment,
+        updateDepartment,
+        positions,
         addPositing,
       }}
     >

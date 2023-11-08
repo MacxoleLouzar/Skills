@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import DepartmentCp from "../Components/DepartmentCp";
 import AppContext from "../Context/AppContext";
 
+
 const DepartmentList = () => {
   const { departments, addDepartment } = useContext(AppContext);
   useEffect(() => {

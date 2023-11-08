@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AdminAdd = () => {
+const AddEmployee = () => {
   const [showModal, setShowModal] = useState(false);
   return (
     <div>
@@ -20,7 +20,7 @@ const AdminAdd = () => {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                   <h3 className="text-2xl font-semibold w-80">
-                    Add New Candidate
+                    Add New Employee
                   </h3>
                   <button
                     className="pb-1 ml-auto bg-transparent border-0 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -50,21 +50,33 @@ const AdminAdd = () => {
                       placeholder="Email"
                       className="input input-bordered w-full max-w-xs"
                     />
+                    <input
+                      type="email"
+                      placeholder="Salary"
+                      className="input input-bordered w-full max-w-xs"
+                    />
                     <select className="select select-bordered input-sm w-full max-w-xs">
                       <option disabled selected>
-                        Gender
+                        Department
                       </option>
-                      <option>Male</option>
-                      <option>Female</option>
+                      <option>------</option>
+                      <option>------</option>
+                    </select>
+                    <select className="select select-bordered input-sm w-full max-w-xs">
+                      <option disabled selected>
+                        Position
+                      </option>
+                      <option>------</option>
+                      <option>------</option>
                     </select>
                     <input
                       type="link"
-                      placeholder="Image Url"
+                      placeholder="Hired Date"
                       className="input input-bordered w-full max-w-xs"
                     />
                     <input
                       type="number"
-                      placeholder="Birth year e.g: 1996"
+                      placeholder="D.O.B"
                       className="input input-bordered w-full max-w-xs"
                     />
                   </form>
@@ -91,4 +103,4 @@ const AdminAdd = () => {
   );
 };
 
-export default AdminAdd;
+export default AddEmployee;

@@ -1,50 +1,55 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AppContext from "../Context/AppContext";
 
-const AddPosition = () => {
-  const { addPositing } = useContext(AppContext);
+const UpdateDepartment = () => {
+  const { addDepartment } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
-  const [position, setPosition] = useState("");
-  const [description, setDescription] = useState("");
+  const [deptName, setDepartmentName] = useState("");
+  const [deptAddress, setDeptAddress] = useState("");
 
-  const OnAddPosition = (e) => {
+  const updateDept = (e) => {
     e.preventDefault();
-
-    if (!position || !description) {
+    if (!deptName || !deptAddress) {
       toast.error("All fields are required");
+      return;
     }
-
-    fetch("http://localhost:1001/api/job", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ position, description }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data?.error) {
-          toast.error(data);
-          return;
-        }
-        addPositing(data);
-        toast.success("Succeesful Added");
-        navigate("/employees");
+    useEffect(() => {
+      fetch(`http://localhost:1001/api/dep/${_id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ deptName, deptAddress }),
       })
-      .catch((error) => console.log(error));
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data?.error) {
+            toast.error(data.error);
+            return;
+          }
+          addDepartment(data);
+          toast.success("Succeesful Update");
+          navigate("/employees");
+        })
+        .catch((error) => {
+          toast.error("Server Error", error);
+        });
+    }, []);
   };
 
   return (
     <div>
-      <button
+      {/* <button
         className="btn btn-circle btn-neutral fixed right-8 bottom-[30%] animate-bounce shadow-lg"
         onClick={() => setShowModal(true)}
       >
         +
-      </button>
+      </button> */}
 
       {showModal ? (
         <>
@@ -55,7 +60,7 @@ const AddPosition = () => {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                   <h3 className="text-2xl font-semibold w-80">
-                    Add New Position
+                    Update Department
                   </h3>
                   <button
                     className="pb-1 ml-auto bg-transparent border-0 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -72,17 +77,17 @@ const AddPosition = () => {
                   >
                     <input
                       type="text"
-                      placeholder="Position"
+                      placeholder="Department Name"
                       className="input input-bordered w-full max-w-xs"
-                      value={position}
-                      onChange={(e) => setPosition(e.target.value)}
+                      value={deptName}
+                      onChange={(e) => setDepartmentName(e.target.value)}
                     />
                     <input
                       type="text"
-                      placeholder="Description"
+                      placeholder="Department Address"
                       className="input input-bordered w-full max-w-xs"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
+                      value={deptAddress}
+                      onChange={(e) => setDeptAddress(e.target.value)}
                     />
                   </form>
                 </div>
@@ -96,8 +101,8 @@ const AddPosition = () => {
                       Close
                     </button>
                     <button
+                      onClick={updateDept}
                       className="btn btn-sm btn-neutral"
-                      onClick={OnAddPosition}
                     >
                       Submit
                     </button>
@@ -113,4 +118,4 @@ const AddPosition = () => {
   );
 };
 
-export default AddPosition;
+export default UpdateDepartment;

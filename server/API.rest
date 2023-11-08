@@ -10,7 +10,7 @@ POST http://localhost:1001/api/dep
 Content-Type: application/json
 
 {
-     "dept_name": "Data Science",
+    "dept_name": "Data Science",
     "dept_address": "Campus"
 }
 
