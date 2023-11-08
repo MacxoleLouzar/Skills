@@ -1,7 +1,52 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { toast } from "react-toastify";
+import AppContext from "../Context/AppContext";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddEmployee = () => {
   const [showModal, setShowModal] = useState(false);
+  const { employees, addEmployee } = useContext(AppContext);
+
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [email, setEmail] = useState("");
+  const [salary, setSalary] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [selectedPosition, setSelectedPosition] = useState("");
+  const [hiredDate, setHiredDate] = useState(new Date());
+  const [dob, setDob] = useState(new Date());
+
+  const onAddEmployee = () => {
+    if (!name || !surname || !email) {
+      toast.error("NAME, SURNAME, EMAIL these fields are required");
+    }
+
+    fetch("http://localhost:1001/api/emp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        surname,
+        email,
+        salary,
+        selectedDepartment,
+        selectedPosition,
+        hiredDate,
+        dob,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          addEmployee(data.employees), toast.success("Succeesful Added");
+          navigate("/employees");
+        })
+        .catch((error) => console.log(error)),
+    });
+  };
+
   return (
     <div>
       <button
@@ -39,21 +84,29 @@ const AddEmployee = () => {
                       type="text"
                       placeholder="First name"
                       className="input input-bordered w-full max-w-xs"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
                     <input
                       type="text"
                       placeholder="Last name"
                       className="input input-bordered w-full max-w-xs"
+                      value={surname}
+                      onChange={(e) => setSurname(e.target.value)}
                     />
                     <input
                       type="email"
                       placeholder="Email"
                       className="input input-bordered w-full max-w-xs"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                     <input
                       type="email"
                       placeholder="Salary"
                       className="input input-bordered w-full max-w-xs"
+                      value={salary}
+                      onChange={(e) => setSalary(e.target.value)}
                     />
                     <select className="select select-bordered input-sm w-full max-w-xs">
                       <option disabled selected>
@@ -69,15 +122,19 @@ const AddEmployee = () => {
                       <option>------</option>
                       <option>------</option>
                     </select>
-                    <input
+                    <DatePicker
                       type="link"
                       placeholder="Hired Date"
                       className="input input-bordered w-full max-w-xs"
+                      selected={hiredDate}
+                      onChange={(date) => setHiredDate(date)}
                     />
-                    <input
+                    <DatePicker
                       type="number"
                       placeholder="D.O.B"
                       className="input input-bordered w-full max-w-xs"
+                      selected={dob}
+                      onChange={(date) => setDob(date)}
                     />
                   </form>
                 </div>
@@ -90,7 +147,12 @@ const AddEmployee = () => {
                     >
                       Close
                     </button>
-                    <button className="btn btn-sm btn-neutral">Submit</button>
+                    <button
+                      className="btn btn-sm btn-neutral"
+                      onClick={onAddEmployee}
+                    >
+                      Submit
+                    </button>
                   </div>
                 </div>
               </div>

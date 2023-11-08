@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import AppContext from "../Context/AppContext";
 
 const UpdateDepartment = () => {
-  const { addDepartment } = useContext(AppContext);
+  const { updateDepartment } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
@@ -28,11 +28,9 @@ const UpdateDepartment = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          if (data?.error) {
-            toast.error(data.error);
-            return;
-          }
-          addDepartment(data);
+          setDepartmentName(data.deptName);
+          setDeptAddress(data.deptAddress);
+          updateDepartment(data);
           toast.success("Succeesful Update");
           navigate("/employees");
         })

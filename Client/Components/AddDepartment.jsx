@@ -34,7 +34,7 @@ const AddDepartment = () => {
         }
         addDepartment(data);
         toast.success("Succeesful Added");
-        navigate("/employees");
+        navigate("/departments");
       })
       .catch((error) => {
         toast.error("Server Error", error);

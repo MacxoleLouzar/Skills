@@ -1,5 +1,6 @@
 import React from "react";
 import AddDepartment from "../Components/AddDepartment";
+import UpdateDepartment from "./UpdateDepartment";
 
 
 const DepartmentCp = ({ dep }) => {
@@ -12,7 +13,8 @@ const DepartmentCp = ({ dep }) => {
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-hidden">
               <table className="min-w-full">
-                <AddDepartment/>
+                <AddDepartment />
+                <UpdateDepartment />
                 <thead className="bg-gray-200 border-b">
                   <tr className="flex">
                     <th
@@ -48,6 +50,12 @@ const DepartmentCp = ({ dep }) => {
                       <div className="btn-group">
                         <button className="btn btn-sm">View</button>
                         <button className="btn btn-sm">Edit</button>
+                        {/* <button
+        className="btn btn-circle btn-neutral fixed right-8 bottom-[30%] animate-bounce shadow-lg"
+        onClick={() => setShowModal(true)}
+      >
+        +
+      </button> */}
                         <button className="btn btn-sm">Remove</button>
                       </div>
                     </td>

@@ -2,13 +2,12 @@ import React, { useContext, useEffect } from "react";
 import DepartmentCp from "../Components/DepartmentCp";
 import AppContext from "../Context/AppContext";
 
-
 const DepartmentList = () => {
   const { departments, addDepartment } = useContext(AppContext);
   useEffect(() => {
     fetch("http://localhost:1001/api/dep")
       .then((res) => res.json())
-      .then((data) => addDepartment(data.departments))
+      .then((data) => addDepartment(data))
       .catch((error) => console.log(error));
   }, []);
 
