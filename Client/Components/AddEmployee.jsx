@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
+import DatePicker from "react-datepicker";
 import { toast } from "react-toastify";
 import AppContext from "../Context/AppContext";
-import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 const AddEmployee = () => {
   const [showModal, setShowModal] = useState(false);
-  const { employees, addEmployee } = useContext(AppContext);
+  const { employees, departments, positions, addEmployee } =
+    useContext(AppContext);
 
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -108,19 +109,33 @@ const AddEmployee = () => {
                       value={salary}
                       onChange={(e) => setSalary(e.target.value)}
                     />
-                    <select className="select select-bordered input-sm w-full max-w-xs">
+                    <select
+                      className="select select-bordered input-sm w-full max-w-xs"
+                      value={selectedDepartment}
+                      onChange={(e) => e.target.value}
+                    >
                       <option disabled selected>
                         Department
                       </option>
-                      <option>------</option>
-                      <option>------</option>
+                      {departments.map((department) => (
+                        <option key={department.id} value={department.id}>
+                          {department.dept_name}
+                        </option>
+                      ))}
                     </select>
-                    <select className="select select-bordered input-sm w-full max-w-xs">
+                    <select
+                      value={selectedPosition}
+                      onChange={(e) => e.target.value}
+                      className="select select-bordered input-sm w-full max-w-xs"
+                    >
                       <option disabled selected>
                         Position
                       </option>
-                      <option>------</option>
-                      <option>------</option>
+                      {positions.map((position) => (
+                        <option key={position.id} value={position.id}>
+                          {position.rj_title}
+                        </option>
+                      ))}
                     </select>
                     <DatePicker
                       type="link"
