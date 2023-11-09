@@ -85,4 +85,8 @@ Content-Type: application/json
     "rj_id": 2
 }
 ### Delete Employee
-DELETE http://localhost:1001/api/emp/7
+DELETE http://localhost:1001/api/emp/10
+
+
+###  
+GET http://localhost:1001/api/dep_pos/

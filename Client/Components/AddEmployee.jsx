@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AppContext from "../Context/AppContext";
 
@@ -9,7 +10,7 @@ const AddEmployee = () => {
   const [showModal, setShowModal] = useState(false);
   const { employees, departments, positions, addEmployee } =
     useContext(AppContext);
-
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -22,30 +23,47 @@ const AddEmployee = () => {
   const onAddEmployee = () => {
     if (!name || !surname || !email) {
       toast.error("NAME, SURNAME, EMAIL these fields are required");
+      return;
     }
+
+    // let data = {
+    //   emp_name: name,
+    //   emp_surnme: surname,
+    //   emp_DOB: dob,
+    //   emp_email: email,
+    //   emp_hired_date: hiredDate,
+    //   emp_Salary: salary,
+    //   dept_id: selectedDepartment,
+    //   rj_id: selectedPosition,
+    // };
+
+    let data = {
+      emp_name: name,
+      emp_surnme: surname,
+      emp_DOB: dob,
+      emp_email: email,
+      emp_hired_date: hiredDate,
+      emp_Salary: salary,
+      dept_id: selectedDepartment,
+      rj_id: 2,
+    };
 
     fetch("http://localhost:1001/api/emp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name,
-        surname,
-        email,
-        salary,
-        selectedDepartment,
-        selectedPosition,
-        hiredDate,
-        dob,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((serverData) => {
+        console.log(serverData);
+        // toast.success("Employee Added");
+        // setShowModal(false);
       })
-        .then((res) => res.json())
-        .then((data) => {
-          addEmployee(data.employees), toast.success("Succeesful Added");
-          navigate("/employees");
-        })
-        .catch((error) => console.log(error)),
-    });
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -118,8 +136,11 @@ const AddEmployee = () => {
                         Department
                       </option>
                       {departments.map((department) => (
-                        <option key={department.id} value={department.id}>
-                          {department.dept_name}
+                        <option
+                          key={department.id}
+                          value={department.id}
+                        >
+                          {department.name}
                         </option>
                       ))}
                     </select>
@@ -132,7 +153,7 @@ const AddEmployee = () => {
                         Position
                       </option>
                       {positions.map((position) => (
-                        <option key={position.id} value={position.id}>
+                        <option key={position.rj_id} value={position.rj_id}>
                           {position.rj_title}
                         </option>
                       ))}

@@ -1,4 +1,5 @@
 const DepartmentModel = require("../Model/DepartmentModel");
+const JobsModel = require("../Model/JobRolesModel");
 
 const AddDepartmentCtrl = async (req, res) => {
   const dep = req.body;
@@ -16,6 +17,22 @@ const GetDepartmentsCtrl = async (req, res) => {
   try {
     const department = await DepartmentModel.GetDepartmentsModel();
     res.status(200).json({ data: department, message: "All Departments" });
+  } catch (error) {
+    res.status(500).json({ error: "Error Gettingg department", error });
+  }
+};
+
+const GetDepartmentAndPositionFunc = async (req, res) => {
+  try {
+    const department = await DepartmentModel.GetDepartmentsModel();
+    const Job = await JobsModel.GetJobRolesModel();
+
+    res.status(200).json({
+      job: Job,
+      department,
+
+      message: "All Departments and positionm",
+    });
   } catch (error) {
     res.status(500).json({ error: "Error Gettingg department", error });
   }
@@ -61,4 +78,5 @@ module.exports = {
   GetOneDepartmentCrl,
   UpdateDepartmentCTRL,
   DeleteDepartmentCTRL,
+  GetDepartmentAndPositionFunc,
 };

@@ -1,14 +1,16 @@
 const EmployeeModel = require("../Model/EmployeeModel");
+const JobsModel = require("../Model/JobRolesModel");
 
 const AddEmployeeCtrl = async (req, res) => {
   const emp = req.body;
+
   try {
     const employee = await EmployeeModel.CreateEmployeeModel(emp);
     res
-      .status(200)
+      .status(201)
       .json({ data: employee, message: "Employee added succeessful" });
   } catch (error) {
-    res.status(500).json({ error: "Error creating employee", error });
+    res.status(500).json({ message: "Error creating employee", error });
   }
 };
 
