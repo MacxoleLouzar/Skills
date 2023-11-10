@@ -49,11 +49,18 @@ const UpdateDepartmentModel = async (depId, updateDept) => {
 };
 
 const DeleteSingleDeptModel = async (depId) => {
-  const query = "DELETE FROM Departments WHERE dept_id = $1";
+  // const query = "DELETE FROM Employees WHERE dept_id = $1";
   const value = [depId];
-
   try {
-    await connect.query(query, value);
+    await connect.query(
+      "UPDATE Employees SET dept_id = NULL WHERE dept_id = $1",
+      value
+    );
+    await connect.query(
+      "DELETE FROM Departments WHERE dept_id = $1 RETURNING *",
+      value
+    );
+    return;
   } catch (error) {
     throw error;
   }

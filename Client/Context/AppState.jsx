@@ -5,8 +5,8 @@ import AppContext from "./AppContext";
 const AppState = ({ children }) => {
   const [admin, setAdmin] = useState(null);
   const [employees, setEmployee] = useState([]);
-  const [departments, setDepartment] = useState(Get_pos_dep);
-  const [positions, setPosition] = useState();
+  const [departments, setDepartment] = useState([]);
+  const [positions, setPosition] = useState([]);
 
   const addEmployee = (emp) => {
     setEmployee(emp);
