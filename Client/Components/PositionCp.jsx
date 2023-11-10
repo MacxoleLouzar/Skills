@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import AppContext from "../Context/AppContext";
 
 const PositionCp = ({ job }) => {
-
+  const { removePosition } = useContext(AppContext);
   const handleDelete = (id) => {
     fetch(`http://localhost:1001/api/job/${id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        removePosition(data);
         toast.success("Succeesful Deleted");
-        navigate("/departments");
+        navigate("/positions");
       })
-      .catch((error) => setError(error));
+      .catch((error) => console.log(error));
   };
   return (
     <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-base-200 flex">
@@ -27,7 +28,10 @@ const PositionCp = ({ job }) => {
         <div className="btn-group">
           <button className="btn btn-sm">View</button>
           <button className="btn btn-sm">Edit</button>
-          <button className="btn btn-sm" onClick={()=>handleDelete(job?.rj_id)}>
+          <button
+            className="btn btn-sm"
+            onClick={() => handleDelete(job?.rj_id)}
+          >
             Remove
           </button>
         </div>

@@ -45,7 +45,7 @@ const DepartmentCp = ({ dep }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        removeDepartment(data);
         toast.success("Succeesful Deleted");
         navigate("/departments");
       })
