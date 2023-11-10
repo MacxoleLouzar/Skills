@@ -23,7 +23,7 @@ const DepartmentList = () => {
               <div className="overflow-hidden">
                 <table className="min-w-full">
                   <AddDepartment />
-                 
+
                   <thead className="bg-gray-200 border-b">
                     <tr className="flex">
                       <th

@@ -49,11 +49,18 @@ const UpdateJobRoleModel = async (Id, updateJob) => {
 };
 
 const DeleteSingleJobRoleModel = async (Id) => {
-  const query = "DELETE FROM JobRoles WHERE rj_id = $1";
   const value = [Id];
 
   try {
-    await connect.query(query, value);
+    await connect.query(
+      "UPDATE Employees SET rj_id = NULL WHERE rj_id = $1",
+      value
+    );
+    await connect.query(
+      "DELETE FROM JobRoles WHERE rj_id = $1 RETURNING *",
+      value
+    );
+    return;
   } catch (error) {
     throw error;
   }

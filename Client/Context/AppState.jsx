@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Get_pos_dep from "../utils/Get_pos_dep";
 import AppContext from "./AppContext";
 
 const AppState = ({ children }) => {
@@ -36,9 +35,14 @@ const AppState = ({ children }) => {
     setDepartment(dept);
   };
 
-  const addPositing = (data) => {
-    setPosition([data]);
+  const addPosition = (data) => {
+    setPosition(data);
   };
+  const removePosition = (job) => {
+    let jobs = positions.filter((x) => x._id !== job.id);
+    setDepartment(jobs);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -53,7 +57,8 @@ const AppState = ({ children }) => {
         updateDepartment,
         removeDepartment,
         positions,
-        addPositing,
+        addPosition,
+        removePosition,
       }}
     >
       {children}
