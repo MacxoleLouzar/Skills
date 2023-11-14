@@ -1,16 +1,16 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AppContext from "../Context/AppContext";
-
-import "react-datepicker/dist/react-datepicker.css";
 
 const AddEmployee = () => {
   const [showModal, setShowModal] = useState(false);
   const { employees, departments, positions, addEmployee } =
     useContext(AppContext);
   const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -20,23 +20,29 @@ const AddEmployee = () => {
   const [hiredDate, setHiredDate] = useState(new Date());
   const [dob, setDob] = useState(new Date());
 
+  useEffect(() => {
+    fetch("http://localhost:1001/api/dep")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setSelectedDepartment(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:1001/api/job")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setSelectedPosition(data);
+      });
+  }, []);
+
   const onAddEmployee = () => {
     if (!name || !surname || !email) {
       toast.error("NAME, SURNAME, EMAIL these fields are required");
       return;
     }
-
-    // let data = {
-    //   emp_name: name,
-    //   emp_surnme: surname,
-    //   emp_DOB: dob,
-    //   emp_email: email,
-    //   emp_hired_date: hiredDate,
-    //   emp_Salary: salary,
-    //   dept_id: selectedDepartment,
-    //   rj_id: selectedPosition,
-    // };
-
     let data = {
       emp_name: name,
       emp_surnme: surname,
@@ -45,7 +51,7 @@ const AddEmployee = () => {
       emp_hired_date: hiredDate,
       emp_Salary: salary,
       dept_id: selectedDepartment,
-      rj_id: 2,
+      rj_id: selectedPosition,
     };
 
     fetch("http://localhost:1001/api/emp", {
@@ -127,37 +133,37 @@ const AddEmployee = () => {
                       value={salary}
                       onChange={(e) => setSalary(e.target.value)}
                     />
+
                     <select
                       className="select select-bordered input-sm w-full max-w-xs"
                       value={selectedDepartment}
                       onChange={(e) => e.target.value}
                     >
-                      <option disabled selected>
+                      <option value="Department" disabled>
                         Department
                       </option>
                       {departments.map((department) => (
-                        <option
-                          key={department.id}
-                          value={department.id}
-                        >
-                          {department.name}
+                        <option key={department.id} value={department.id}>
+                          {department.dept_name}
                         </option>
                       ))}
                     </select>
+
                     <select
                       value={selectedPosition}
                       onChange={(e) => e.target.value}
                       className="select select-bordered input-sm w-full max-w-xs"
                     >
-                      <option disabled selected>
+                      <option value="Position" disabled>
                         Position
                       </option>
                       {positions.map((position) => (
-                        <option key={position.rj_id} value={position.rj_id}>
-                          {position.rj_title}
+                        <option key={position.pos_id} value={position.pos_id}>
+                          {position.pos_name}
                         </option>
                       ))}
                     </select>
+
                     <DatePicker
                       type="link"
                       placeholder="Hired Date"

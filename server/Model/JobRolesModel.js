@@ -2,8 +2,8 @@ const connect = require("../DB/DbConnect");
 
 const CreateJobRolestModel = async (jobData) => {
   const query =
-    "Insert into JobRoles(rj_title, rj_description) VALUES($1, $2) RETURNING *";
-  const values = [jobData.rj_title, jobData.rj_Description];
+    "Insert into positions(pos_name, pos_descrption) VALUES($1, $2) RETURNING *";
+  const values = [jobData.pos_name, jobData.pos_descrption];
 
   try {
     const result = await connect.query(query, values);
@@ -14,7 +14,7 @@ const CreateJobRolestModel = async (jobData) => {
 };
 
 const GetJobRolesModel = async () => {
-  const query = "select * from JobRoles";
+  const query = "select * from positions";
   try {
     const result = await connect.query(query);
     return result.rows;
@@ -24,7 +24,7 @@ const GetJobRolesModel = async () => {
 };
 
 const GetJobRoleModel = async (Id) => {
-  const query = "SELECT * FROM JobRoles WHERE rj_id = $1";
+  const query = "SELECT * FROM positions WHERE pos_id = $1";
   const value = [Id];
 
   try {
@@ -37,8 +37,8 @@ const GetJobRoleModel = async (Id) => {
 
 const UpdateJobRoleModel = async (Id, updateJob) => {
   const query =
-    "UPDATE JobRoles SET rj_title = $1, rj_description = $2 WHERE rj_id = $3 RETURNING *";
-  const values = [updateJob.rj_title, updateJob.rj_Description, Id];
+    "UPDATE positions SET pos_name = $1, pos_descrption = $2 WHERE pos_id = $3 RETURNING *";
+  const values = [updateJob.pos_name, updateJob.pos_descrption, Id];
 
   try {
     const result = await connect.query(query, values);
@@ -53,11 +53,11 @@ const DeleteSingleJobRoleModel = async (Id) => {
 
   try {
     await connect.query(
-      "UPDATE Employees SET rj_id = NULL WHERE rj_id = $1",
+      "UPDATE Employees SET pos_id = NULL WHERE rj_id = $1",
       value
     );
     await connect.query(
-      "DELETE FROM JobRoles WHERE rj_id = $1 RETURNING *",
+      "DELETE FROM positions WHERE pos_id = $1 RETURNING *",
       value
     );
     return;

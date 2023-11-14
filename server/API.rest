@@ -1,12 +1,18 @@
-GET http://localhost:1001
+@host=http://localhost:1001
+@token=
+@id=5
+
+
+### test server
+GET {{host}}
 
 ####============================ Departments =========================================
-GET http://localhost:1001/api/dep
+GET {{host}}/api/dep
 ####
-GET http://localhost:1001/api/dep/6
+GET {{host}}/api/dep/6
 
 ### Add a Department
-POST http://localhost:1001/api/dep
+POST {{host}}/api/dep
 Content-Type: application/json
 
 {
@@ -15,7 +21,7 @@ Content-Type: application/json
 }
 
 ### Edit Department
-PUT http://localhost:1001/api/dep/5
+PUT {{host}}/api/dep/{{id}}
 Content-Type: application/json
 
 {
@@ -23,41 +29,42 @@ Content-Type: application/json
     "dept_address": "HQ"
 }
 ### Delete Department
-DELETE http://localhost:1001/api/dep/5
+DELETE {{host}}/api/dep/{{id}}
 
 
 ####============================ JobRoles =========================================
-GET http://localhost:1001/api/job
+GET {{host}}/api/job
 
 ### Get Job
-GET http://localhost:1001/api/job/4
+GET {{host}}/api/job/{{id}}
 
 ### Add a Job
-POST http://localhost:1001/api/job/
+POST {{host}}/api/job/
 Content-Type: application/json
 
 {
-    "rj_title": "Senior Designer",
-    "rj_Description": "Oversee Designs from the team"
+    "pos_name": "Sr. Software Dev",
+    "pos_descrption": "Oversee"
 }
 ### Edit Job
-PUT http://localhost:1001/api/job/8
+PUT {{host}}/api/job/8
 Content-Type: application/json
 
 {
-    "rj_title": "Senior Designer",
-    "rj_Description": "Oversee Designs from the team"
+    "pos_name": "Senior Designer",
+    "pos_descrption": "Oversee Designs from the team"
 }
 ### Delete Job
-DELETE http://localhost:1001/api/job/9
+DELETE {{host}}/api/job/9
 
 ####============================ Employee =========================================
-GET http://localhost:1001/api/emp
+GET {{host}}/api/emp
+
 ### Get Employee
-GET http://localhost:1001/api/emp/3
+GET {{host}}/api/emp/3
 
 ### Add a Employee
-POST http://localhost:1001/api/emp
+POST {{host}}/api/emp
 Content-Type: application/json
 
 {
@@ -67,11 +74,11 @@ Content-Type: application/json
     "emp_email": "zoe@gmail.com",
     "emp_hired_date": "2021-10-31",
     "emp_Salary": 28000.00,
-    "dept_id": 3,
-    "rj_id": 2
+    "dept_id": 1,
+    "pos_id":1
 }
 ### Edit Employee
-PUT http://localhost:1001/api/emp/5
+PUT {{host}}/api/emp/5
 Content-Type: application/json
 
 {
@@ -82,11 +89,11 @@ Content-Type: application/json
     "emp_hired_date": "2021-10-31T10:00:00Z",
     "emp_Salary": "28000.00",
     "dept_id": 3,
-    "rj_id": 2
+    "pos_id": 2
 }
 ### Delete Employee
 DELETE http://localhost:1001/api/emp/10
 
 
 ###  
-GET http://localhost:1001/api/dep_pos/
+GET {{host}}/api/dep_pos/

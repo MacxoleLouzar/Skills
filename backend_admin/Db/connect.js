@@ -5,8 +5,7 @@ dotenv.config();
 const connect = async () => {
   try {
     await mongoose.connect(
-      process.env.MONGO_URL ||
-        "mongodb+srv://admin:P123456789@cluster0.ifm4oar.mongodb.net/"
+      process.env.MONGO_URL || "mongodb://127.0.0.1:27017/admin123"
     ),
       { useNewUrlParser: true };
     console.log("Database connected");
@@ -15,4 +14,4 @@ const connect = async () => {
   }
 };
 
-export default connect; 
+export default connect;
