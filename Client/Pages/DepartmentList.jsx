@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import AddDepartment from "../Components/AddDepartment";
 import DepartmentCp from "../Components/DepartmentCp";
 import AppContext from "../Context/AppContext";
@@ -21,9 +22,16 @@ const DepartmentList = () => {
           <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
             <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
               <div className="overflow-hidden">
+                <Link
+                  to={"/dash"}
+                  className="btn btn-primary absolute right-5 px-12 font-semibold rounded-md bg-gray-400 text-black"
+                >
+                  {" "}
+                  Back{" "}
+                </Link>
+
                 <table className="min-w-full">
                   <AddDepartment />
-
                   <thead className="bg-gray-200 border-b">
                     <tr className="flex">
                       <th
@@ -47,8 +55,8 @@ const DepartmentList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {departments.map((dept, index) => (
-                      <DepartmentCp key={index} dep={dept} />
+                    {departments?.map((dept, index) => (
+                      <DepartmentCp key={index} dept={dept} />
                     ))}
                   </tbody>
                 </table>

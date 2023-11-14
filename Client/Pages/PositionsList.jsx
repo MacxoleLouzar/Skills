@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import AddPosition from "../Components/AddPosition";
 import PositionCp from "../Components/PositionCp";
 import AppContext from "../Context/AppContext";
@@ -20,6 +21,13 @@ const PositionsList = () => {
         <div className="flex flex-col">
           <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
             <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+              <Link
+                to={"/dash"}
+                className="btn btn-primary absolute right-5 px-12 font-semibold rounded-md bg-gray-400 text-black"
+              >
+                {" "}
+                Back{" "}
+              </Link>
               <div className="overflow-hidden">
                 <AddPosition />
                 <table className="min-w-full">

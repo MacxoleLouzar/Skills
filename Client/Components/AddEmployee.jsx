@@ -7,8 +7,14 @@ import AppContext from "../Context/AppContext";
 
 const AddEmployee = () => {
   const [showModal, setShowModal] = useState(false);
-  const { employees, departments, positions, addEmployee } =
-    useContext(AppContext);
+  const {
+    employees,
+    departments,
+    addDepartment,
+    positions,
+    addEmployee,
+    addPosition,
+  } = useContext(AppContext);
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -24,8 +30,9 @@ const AddEmployee = () => {
     fetch("http://localhost:1001/api/dep")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setSelectedDepartment(data);
+        console.log(data.data);
+        addDepartment(data.data);
+        setSelectedDepartment(data.data);
       });
   }, []);
 
@@ -33,8 +40,9 @@ const AddEmployee = () => {
     fetch("http://localhost:1001/api/job")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setSelectedPosition(data);
+        console.log(data.data);
+        addPosition(data.data);
+        setSelectedPosition(data.data);
       });
   }, []);
 
@@ -64,8 +72,8 @@ const AddEmployee = () => {
       .then((response) => response.json())
       .then((serverData) => {
         console.log(serverData);
-        // toast.success("Employee Added");
-        // setShowModal(false);
+        toast.success("Employee Added");
+        setShowModal(false);
       })
       .catch((error) => {
         console.log(error);
@@ -135,15 +143,18 @@ const AddEmployee = () => {
                     />
 
                     <select
-                      className="select select-bordered input-sm w-full max-w-xs"
                       value={selectedDepartment}
-                      onChange={(e) => e.target.value}
+                      onChange={(e) => setSelectedDepartment(e.target.value)}
+                      className="select select-bordered input-sm w-full max-w-xs"
                     >
                       <option value="Department" disabled>
                         Department
                       </option>
                       {departments.map((department) => (
-                        <option key={department.id} value={department.id}>
+                        <option
+                          key={department.dept_id}
+                          value={department.dept_id}
+                        >
                           {department.dept_name}
                         </option>
                       ))}
@@ -151,7 +162,7 @@ const AddEmployee = () => {
 
                     <select
                       value={selectedPosition}
-                      onChange={(e) => e.target.value}
+                      onChange={(e) => setSelectedPosition(e.target.value)}
                       className="select select-bordered input-sm w-full max-w-xs"
                     >
                       <option value="Position" disabled>

@@ -7,7 +7,7 @@ const AppState = ({ children }) => {
   const [departments, setDepartment] = useState([]);
   const [positions, setPosition] = useState([]);
 
-  const addEmployee = (emp) => {
+  const addEmployee = (emp) => { 
     setEmployee(emp);
   };
 

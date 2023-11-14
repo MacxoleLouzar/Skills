@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AppContext from "../Context/AppContext";
 
-const DepartmentCp = ({ dep }) => {
+const DepartmentCp = ({ dept }) => {
   const { updateDepartment, removeDepartment } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
@@ -54,10 +54,10 @@ const DepartmentCp = ({ dep }) => {
   return (
     <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-base-200 flex">
       <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-        {dep?.dept_name}
+        {dept?.dept_name}
       </td>
       <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-        {dep?.dept_address}
+        {dept?.dept_address}
       </td>
 
       <td className="text-sm px-6 py-4 whitespace-nowrap flex-1">
@@ -66,7 +66,7 @@ const DepartmentCp = ({ dep }) => {
           <button className="btn btn-sm">Edit</button>
           <button
             className="btn btn-sm"
-            onClick={() => handleDelete(dep?.dept_id)}
+            onClick={() => handleDelete(dept?.dept_id)}
           >
             Remove
           </button>

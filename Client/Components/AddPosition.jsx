@@ -9,19 +9,22 @@ const AddPosition = () => {
   const [position, setPosition] = useState("");
   const [description, setDescription] = useState("");
 
-  const OnAddPosition = (e) => {
-    e.preventDefault();
-
+  const OnAddPosition = () => {
     if (!position || !description) {
       toast.error("All fields are required");
     }
+
+    let data = {
+      pos_name: position,
+      pos_descrption: description,
+    };
 
     fetch("http://localhost:1001/api/job", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ position, description }),
+      body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -32,7 +35,7 @@ const AddPosition = () => {
         }
         addPositing(data);
         toast.success("Succeesful Added");
-        navigate("/employees");
+        navigate("/positions");
       })
       .catch((error) => console.log(error));
   };

@@ -11,19 +11,22 @@ const AddDepartment = () => {
   const [deptName, setDepartmentName] = useState("");
   const [deptAddress, setDeptAddress] = useState("");
 
-  const AddDept = (e) => {
-    e.preventDefault();
+  const AddDept = () => {
     if (!deptName || !deptAddress) {
       toast.error("All fields are required");
       return;
     }
+    let data = {
+      dept_name: deptName,
+      dept_address: deptAddress,
+    };
 
     fetch("http://localhost:1001/api/dep", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ deptName, deptAddress }),
+      body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -33,8 +36,8 @@ const AddDepartment = () => {
           return;
         }
         addDepartment(data);
-        toast.success("Succeesful Added");
         navigate("/departments");
+        toast.success("Succeesful Added");
       })
       .catch((error) => {
         toast.error("Server Error", error);

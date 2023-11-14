@@ -21,7 +21,7 @@ const PositionCp = ({ job }) => {
         {job?.pos_name}
       </td>
       <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-        {job?.pos_description}
+        {job?.pos_descrption}
       </td>
 
       <td className="text-sm px-6 py-4 whitespace-nowrap flex-1">
