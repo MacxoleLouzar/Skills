@@ -22,7 +22,7 @@ const EmployeesCp = ({ emp }) => {
         {emp?.emp_name}
       </td>
       <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-        {emp?.emp_surnme}
+        {emp?.emp_surname}
       </td>
       <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
         {emp?.emp_email}
@@ -34,10 +34,10 @@ const EmployeesCp = ({ emp }) => {
         {emp?.dept_id}
       </td>
       <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-        {emp?.rj_id}
+        {emp?.pos_id}
       </td>
       <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
-        {emp?.emp_hired_date}
+        {emp?.emp_hireddate}
       </td>
       <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
         {emp?.emp_dob}

@@ -68,14 +68,14 @@ POST {{host}}/api/emp
 Content-Type: application/json
 
 {
-    "emp_name": "Zolani",
-    "emp_surnme": "Ngxatha",
-    "emp_DOB": "2000-12-01",
+    "emp_name": "Aphelele",
+    "emp_surname": "Fassi",
+    "emp_dob": "2000-12-01T10:00:00Z",
     "emp_email": "zoe@gmail.com",
-    "emp_hired_date": "2021-10-31",
-    "emp_Salary": 28000.00,
-    "dept_id": 1,
-    "pos_id":1
+    "emp_hireddate": "2021-10-31T10:00:00Z",
+    "emp_dalary": "28000.00",
+    "dept_id": 3,
+    "pos_id": 2
 }
 ### Edit Employee
 PUT {{host}}/api/emp/5
@@ -83,11 +83,11 @@ Content-Type: application/json
 
 {
     "emp_name": "Aphelele",
-    "emp_surnme": "Fassi",
-    "emp_DOB": "2000-12-01T10:00:00Z",
+    "emp_surname": "Fassi",
+    "emp_dob": "2000-12-01T10:00:00Z",
     "emp_email": "zoe@gmail.com",
-    "emp_hired_date": "2021-10-31T10:00:00Z",
-    "emp_Salary": "28000.00",
+    "emp_hireddate": "2021-10-31T10:00:00Z",
+    "emp_dalary": "28000.00",
     "dept_id": 3,
     "pos_id": 2
 }

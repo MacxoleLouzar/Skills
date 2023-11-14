@@ -45,13 +45,13 @@ const AddEmployee = () => {
     }
     let data = {
       emp_name: name,
-      emp_surnme: surname,
-      emp_DOB: dob,
+      emp_surname: surname,
+      emp_dob: dob,
       emp_email: email,
-      emp_hired_date: hiredDate,
-      emp_Salary: salary,
+      emp_hireddate: hiredDate,
+      emp_salary: salary,
       dept_id: selectedDepartment,
-      rj_id: selectedPosition,
+      pos_id: selectedPosition,
     };
 
     fetch("http://localhost:1001/api/emp", {
