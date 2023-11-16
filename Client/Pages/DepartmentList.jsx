@@ -6,6 +6,8 @@ import AppContext from "../Context/AppContext";
 //import UpdateDepartment from "../Components/UpdateDepartment";
 
 const DepartmentList = () => {
+
+
   const { departments, addDepartment } = useContext(AppContext);
   useEffect(() => {
     fetch("http://localhost:1001/api/dep")

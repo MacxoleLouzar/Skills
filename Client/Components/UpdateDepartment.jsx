@@ -1,54 +1,56 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import AppContext from "../Context/AppContext";
 
-const UpdateDepartment = () => {
+const UpdateDepartment = ({ handleUpdate, dept }) => {
   const { updateDepartment } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-  const [deptName, setDepartmentName] = useState("");
-  const [deptAddress, setDeptAddress] = useState("");
+  const [deptName, setDepartmentName] = useState(dept.deptName);
+  const [deptAddress, setDeptAddress] = useState(dept.deptAddress);
 
-  const updateDept = (e) => {
-    e.preventDefault();
-    if (!deptName || !deptAddress) {
-      toast.error("All fields are required");
-      return;
-    }
-    useEffect(() => {
-      fetch(`http://localhost:1001/api/dep/${_id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ deptName, deptAddress }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
+  useEffect(() => {
+    const updateDept = async () => {
+      try {
+        const { _id } = useParams();
+        const updatedDept = {
+          dept_name: deptName,
+          dept_address: deptAddress,
+        };
+
+        const response = await fetch(`http://localhost:1001/api/dep/${_id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedDept),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
           setDepartmentName(data.deptName);
           setDeptAddress(data.deptAddress);
           updateDepartment(data);
-          toast.success("Succeesful Update");
+          toast.success("Successful Update");
           navigate("/departments");
-        })
-        .catch((error) => {
-          toast.error("Server Error", error);
-        });
-    }, []);
-  };
+        } else {
+          throw new Error(" Error");
+        }
+      } catch (error) {
+        toast.error("Server Error", error);
+      }
+    };
 
+    updateDept();
+  }, []);
   return (
     <div>
-      {/* <button
-        className="btn btn-circle btn-neutral fixed right-8 bottom-[30%] animate-bounce shadow-lg"
+      <button
+        className="btn btn-circle btn-caution fixed right-2 bottom-[50%] animate shadow-lg"
         onClick={() => setShowModal(true)}
-      >
-        +
-      </button> */}
-      
+      ></button>
 
       {showModal ? (
         <>
@@ -116,5 +118,4 @@ const UpdateDepartment = () => {
     </div>
   );
 };
-
 export default UpdateDepartment;
