@@ -24,13 +24,6 @@ const DepartmentList = () => {
           <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
             <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
               <div className="overflow-hidden">
-                <Link
-                  to={"/dash"}
-                  className="btn btn-primary absolute right-5 px-12 font-semibold rounded-md bg-gray-400 text-black"
-                >
-                  {" "}
-                  Back{" "}
-                </Link>
 
                 <table className="min-w-full">
                   <AddDepartment />

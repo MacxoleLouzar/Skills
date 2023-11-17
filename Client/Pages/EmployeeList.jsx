@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import AddEmployee from "../Components/AddEmployee";
 import EmployeesCp from "../Components/EmployeesCp";
 import AppContext from "../Context/AppContext";
@@ -22,13 +21,6 @@ const EmployeeList = () => {
       <AddEmployee />
       <div className="h-full">
         <div className="my-4 text-2xl text-center"> Employees</div>
-        <Link
-          to={"/dash"}
-          className="btn btn-primary absolute right-10 top-6 px-8 font-semibold rounded-md bg-gray-400 text-black"
-        >
-          {" "}
-          Back{" "}
-        </Link>
         <div className="flex flex-col">
           <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
             <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">

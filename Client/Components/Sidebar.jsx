@@ -21,17 +21,26 @@ const Sidebar = () => {
         <nav className="flex-1">
           <ul className="space-y-2">
             <li>
-              <Link to={"/employees"} className="block p-3 hover:bg-red-300">
+              <Link
+                to={"/dash/employees"}
+                className="block p-3 hover:bg-red-300"
+              >
                 Employees
               </Link>
             </li>
             <li>
-              <Link to={"/departments"} className="block p-3 hover:bg-red-300">
+              <Link
+                to={"/dash/departments"}
+                className="block p-3 hover:bg-red-300"
+              >
                 Departments
               </Link>
             </li>
             <li>
-              <Link to={"/positions"} className="block p-3 hover:bg-red-300">
+              <Link
+                to={"/dash/positions"}
+                className="block p-3 hover:bg-red-300"
+              >
                 Positions
               </Link>
             </li>
