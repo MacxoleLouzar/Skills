@@ -10,7 +10,6 @@ import EmployeeList from "../Pages/EmployeeList";
 import Landing from "../Pages/Landing";
 import Login from "../Pages/Login";
 import PositionsList from "../Pages/PositionsList";
-import DashCp from "../Components/DashCp";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -38,10 +37,6 @@ const router = createBrowserRouter([
     path: "/positions",
     element: <PositionsList />,
   },
-  {
-    path: "dashcp",
-    element: <DashCp />
-  }
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
