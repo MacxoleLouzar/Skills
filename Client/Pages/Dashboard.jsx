@@ -14,22 +14,20 @@ const Dashboard = () => {
         <div className="dash">
           <div className="dashNav">
             <Link to="/employees">Employeess</Link>
-            <Link to="/departments">Departments</Link>
-            <Link to="/positions">Position</Link>
+            <Link to="dash/departments">Departments</Link>
+            <Link to="dash/positions">Position</Link>
           </div>
-          <div className="container">
-            <Outlet />
-          </div>
-        </div>
 
-        <Routes>
-          <Route path="dash" element={<Dashboard />}>
-            <Route path="employees" element={<EmployeeList />} />
-            <Route path="departments" element={<DepartmentList />} />
-            <Route path="positions" element={<PositionsList />} />
-          </Route>
-        </Routes>
+          <Outlet />
+        </div>
       </div>
+      <Routes>
+        <Route path="dash" element={<Dashboard />}>
+          <Route path="employees" element={<EmployeeList />} />
+          <Route path="departments" element={<DepartmentList />} />
+          <Route path="positions" element={<PositionsList />} />
+        </Route>
+      </Routes>
     </>
   );
 };
