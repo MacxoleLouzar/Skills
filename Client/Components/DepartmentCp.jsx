@@ -5,7 +5,8 @@ import AppContext from "../Context/AppContext";
 import UpdateDepartment from "./UpdateDepartment";
 
 const DepartmentCp = ({ dept }) => {
-  const { updateDepartment, removeDepartment } = useContext(AppContext);
+  const { updateDepartment, removeDepartment, setDeptId } =
+    useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const [deptName, setDepartmentName] = useState("");
@@ -24,26 +25,14 @@ const DepartmentCp = ({ dept }) => {
       .catch((error) => setError(error));
   };
 
-  const handleEdit = (dept) => {
-    setDepartmentName(dept.deptName);
-    setDeptAddress(dept.deptAddress);
+  const showUpdateModal = (department) => {
+    const { dept_id, dept_name, dept_address } = department;
+    setDepartmentName(dept_name);
+    setDeptAddress(dept_address);
+    setDeptId(dept_id);
     setShowModal(true);
   };
 
-  const handleUpdate = (updateDept) => {
-    updateDepartment(updateDept);
-    setShowModal(false);
-  };
-
-  const handleUpdateSuccess = () => {
-    // Get the updated department information
-    const updatedDept = {
-      deptName: deptName,
-      deptAddress: deptAddress,
-    };
-    // Call the handleUpdate function passed from the parent component
-    handleUpdate(updatedDept);
-  };
   return (
     <>
       <div>
@@ -59,7 +48,10 @@ const DepartmentCp = ({ dept }) => {
             <div className="btn-group">
               <button className="btn btn-sm">View</button>
 
-              <button className="btn btn-sm" onClick={() => handleEdit(dept)}>
+              <button
+                className="btn btn-sm"
+                onClick={() => showUpdateModal(dept)}
+              >
                 Edit
               </button>
               <button
@@ -72,7 +64,10 @@ const DepartmentCp = ({ dept }) => {
           </td>
         </tr>
         {showModal && (
-          <UpdateDepartment handleUpdate={handleUpdate} dept={dept} />
+          <div>
+            {" "}
+            <UpdateDepartment id={dept?.dept_id} />{" "}
+          </div>
         )}
       </div>
     </>

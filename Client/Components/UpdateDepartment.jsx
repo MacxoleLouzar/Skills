@@ -3,48 +3,63 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import AppContext from "../Context/AppContext";
 
-const UpdateDepartment = ({ handleUpdate, dept }) => {
-  const { updateDepartment } = useContext(AppContext);
+const UpdateDepartment = () => {
+  const { updateDepartment, deptId } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-  const [deptName, setDepartmentName] = useState(dept.deptName);
-  const [deptAddress, setDeptAddress] = useState(dept.deptAddress);
+  const [deptName, setDepartmentName] = useState("");
+  const [deptAddress, setDeptAddress] = useState("");
+  // const { id } = useParams();
 
-  useEffect(() => {
-    const updateDept = async () => {
-      try {
-        const { _id } = useParams();
-        const updatedDept = {
+  // useEffect(() => {
+  //   // Fetch department details using the id parameter
+  //   fetch(`http://localhost:1001/api/dep/${id}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setDepartmentName(data.deptName);
+  //       setDeptAddress(data.deptAddress);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error, "Something went wrong, try again");
+  //     });
+  // }, [id]);
+
+  const handleUpdate = () => {
+    try {
+      if (!deptName || !deptAddress) {
+        toast.error("All fields are required");
+      } else {
+        let data = {
           dept_name: deptName,
           dept_address: deptAddress,
         };
 
-        const response = await fetch(`http://localhost:1001/api/dep/${_id}`, {
+        fetch(`http://localhost:1001/api/dep/${deptId}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(updatedDept),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setDepartmentName(data.deptName);
-          setDeptAddress(data.deptAddress);
-          updateDepartment(data);
-          toast.success("Successful Update");
-          navigate("/departments");
-        } else {
-          throw new Error(" Error");
-        }
-      } catch (error) {
-        toast.error("Server Error", error);
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            data.data;
+            console.log(data.data);
+            updateDepartment(data.data);
+            toast.success("Data Updated");
+            setShowModal(false);
+          })
+          .catch((error) => {
+            console.log(error, "Something went wrong, try again");
+          });
       }
-    };
+    } catch (error) {
+      toast.error(" Couldn't update, something went wrong");
+      console.log(error);
+    }
+  };
 
-    updateDept();
-  }, []);
   return (
     <div>
       <button
@@ -102,7 +117,7 @@ const UpdateDepartment = ({ handleUpdate, dept }) => {
                       Close
                     </button>
                     <button
-                      onClick={updateDept}
+                      onClick={handleUpdate}
                       className="btn btn-sm btn-neutral"
                     >
                       Submit

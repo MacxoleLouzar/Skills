@@ -6,8 +6,9 @@ const AppState = ({ children }) => {
   const [employees, setEmployee] = useState([]);
   const [departments, setDepartment] = useState([]);
   const [positions, setPosition] = useState([]);
+  const [deptId, setDeptId] = useState(0);
 
-  const addEmployee = (emp) => { 
+  const addEmployee = (emp) => {
     setEmployee(emp);
   };
 
@@ -59,6 +60,8 @@ const AppState = ({ children }) => {
         positions,
         addPosition,
         removePosition,
+        deptId,
+        setDeptId,
       }}
     >
       {children}

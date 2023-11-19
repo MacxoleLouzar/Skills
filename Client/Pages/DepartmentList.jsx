@@ -1,14 +1,12 @@
 import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import AddDepartment from "../Components/AddDepartment";
 import DepartmentCp from "../Components/DepartmentCp";
 import AppContext from "../Context/AppContext";
 //import UpdateDepartment from "../Components/UpdateDepartment";
 
 const DepartmentList = () => {
-
-
   const { departments, addDepartment } = useContext(AppContext);
+  const departmentList = Array.isArray(departments) ? departments : [];
   useEffect(() => {
     fetch("http://localhost:1001/api/dep")
       .then((res) => res.json())
@@ -24,7 +22,6 @@ const DepartmentList = () => {
           <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
             <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
               <div className="overflow-hidden">
-
                 <table className="min-w-full">
                   <AddDepartment />
                   <thead className="bg-gray-200 border-b">
@@ -50,7 +47,7 @@ const DepartmentList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {departments?.map((dept, index) => (
+                    {departmentList?.map((dept, index) => (
                       <DepartmentCp key={index} dept={dept} />
                     ))}
                   </tbody>

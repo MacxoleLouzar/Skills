@@ -12,7 +12,7 @@ const Dashboard = () => {
             <Link to="dash/employees">Employeess</Link>
             <Link to="dash/departments">Departments</Link>
             <Link to="dash/positions">Position</Link>
-            <Link to={"/dash"} className="absolute right-96 px-6">
+            <Link to={"/dash"}>
               Reload
             </Link>
           </div>
