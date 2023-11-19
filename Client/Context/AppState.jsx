@@ -41,7 +41,7 @@ const AppState = ({ children }) => {
   };
   const removePosition = (job) => {
     let jobs = positions.filter((x) => x._id !== job.id);
-    setDepartment(jobs);
+    setPosition(jobs);
   };
 
   return (
