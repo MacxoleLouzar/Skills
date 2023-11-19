@@ -53,7 +53,7 @@ const DeleteSingleJobRoleModel = async (Id) => {
 
   try {
     await connect.query(
-      "UPDATE Employees SET pos_id = NULL WHERE rj_id = $1",
+      "UPDATE Employees SET pos_id = NULL WHERE pos_id = $1",
       value
     );
     await connect.query(

@@ -55,7 +55,7 @@ Content-Type: application/json
     "pos_descrption": "Oversee Designs from the team"
 }
 ### Delete Job
-DELETE {{host}}/api/job/9
+DELETE {{host}}/api/job/8
 
 ####============================ Employee =========================================
 GET {{host}}/api/emp

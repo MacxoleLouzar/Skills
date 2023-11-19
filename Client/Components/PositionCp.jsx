@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AppContext from "../Context/AppContext";
 import UpdatePosition from "./UpdatePosition";
@@ -6,21 +7,26 @@ import UpdatePosition from "./UpdatePosition";
 const PositionCp = ({ job }) => {
   const { removePosition, setDeptId } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
-
+  const navigate = useNavigate();
   const [posName, setPositionName] = useState("");
   const [posDesc, setPosDesc] = useState("");
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:1001/api/job/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        removePosition(data);
-        toast.success("Succeesful Deleted");
-        navigate("/positions");
+    try {
+      fetch(`http://localhost:1001/api/job/${id}`, {
+        method: "DELETE",
       })
-      .catch((error) => console.log(error));
+        .then((response) => response.json())
+        .then((data) => {
+          removePosition(data);
+          toast.success("Succeesful Deleted");
+          navigate("/dash/dash/positions");
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+      toast.error("something wrong try again later", error);
+      console.log(error);
+    }
   };
 
   const showUpdateModal = (position) => {
@@ -30,6 +36,7 @@ const PositionCp = ({ job }) => {
     setDeptId(pos_id);
     setShowModal(true);
   };
+
   return (
     <>
       <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-base-200 flex">

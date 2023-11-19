@@ -13,16 +13,20 @@ const DepartmentCp = ({ dept }) => {
   const [deptAddress, setDeptAddress] = useState("");
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:1001/api/dep/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        removeDepartment(data);
-        toast.success("Succeesful Deleted");
-        navigate("/departments");
+    try {
+      fetch(`http://localhost:1001/api/dep/${id}`, {
+        method: "DELETE",
       })
-      .catch((error) => setError(error));
+        .then((response) => response.json())
+        .then((data) => {
+          removeDepartment(data);
+          toast.success("Succeesful Deleted");
+          navigate("/dash/dash/departments");
+        })
+        .catch((error) => setError(error));
+    } catch (error) {
+      toast.error("something wrong try again later", error);
+    }
   };
 
   const showUpdateModal = (department) => {
