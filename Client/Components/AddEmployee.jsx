@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -25,6 +24,7 @@ const AddEmployee = () => {
   const [selectedPosition, setSelectedPosition] = useState("");
   const [hiredDate, setHiredDate] = useState(new Date());
   const [dob, setDob] = useState(new Date());
+  const [isAgeValid, setIsAgeValid] = useState(true);
 
   useEffect(() => {
     fetch("http://localhost:1001/api/dep")
@@ -45,6 +45,33 @@ const AddEmployee = () => {
         setSelectedPosition(data.data);
       });
   }, []);
+
+  const getCurrentDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  // const getMinDate = () => {
+
+  // const eighteenYearsAgo = new Date();
+  // eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
+
+  // const year = eighteenYearsAgo.getFullYear();
+  // const month = String(eighteenYearsAgo.getMonth() + 1).padStart(2, "0");
+  // const day = String(eighteenYearsAgo.getDate()).padStart(2, "0");
+  // return `${year}-${month}-${day}`;
+  // };
+
+  useEffect(() => {
+    const currentDate = new Date();
+    const inputDate = new Date(dob);
+    const age = currentDate.getFullYear() - inputDate.getFullYear();
+
+    setIsAgeValid(age > 18);
+  }, [dob]);
 
   const onAddEmployee = () => {
     if (!name || !surname || !email) {
@@ -174,21 +201,28 @@ const AddEmployee = () => {
                         </option>
                       ))}
                     </select>
-
-                    <DatePicker
-                      type="link"
+                    <label>Select a Hired Date:</label>
+                    <input
+                      type="date"
                       placeholder="Hired Date"
                       className="input input-bordered w-full max-w-xs"
                       selected={hiredDate}
                       onChange={(date) => setHiredDate(date)}
+                      max={getCurrentDate()}
                     />
-                    <DatePicker
-                      type="number"
+                    <label>Select a DOB:</label>
+                    <input
+                      type="date"
                       placeholder="D.O.B"
                       className="input input-bordered w-full max-w-xs"
                       selected={dob}
                       onChange={(date) => setDob(date)}
+                      max={getCurrentDate()}
+                      // min={getMinDate()}
                     />
+                    {!isAgeValid && (
+                      <p>Employee must be at least 18 years old.</p>
+                    )}
                   </form>
                 </div>
                 {/*footer*/}
