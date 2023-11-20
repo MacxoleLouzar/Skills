@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import AddPosition from "../Components/AddPosition";
 import PositionCp from "../Components/PositionCp";
 import AppContext from "../Context/AppContext";
 
 const PositionsList = () => {
   const { positions, addPosition } = useContext(AppContext);
+  const positionList = Array.isArray(positions) ? positions : [];
   useEffect(() => {
     fetch("http://localhost:1001/api/job")
       .then((res) => res.json())
@@ -21,8 +21,6 @@ const PositionsList = () => {
         <div className="flex flex-col">
           <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
             <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-            
-           
               <div className="overflow-hidden">
                 <AddPosition />
                 <table className="min-w-full">
@@ -49,7 +47,7 @@ const PositionsList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {positions?.map((job, index) => (
+                    {positionList?.map((job, index) => (
                       <PositionCp key={index} job={job} />
                     ))}
                   </tbody>
