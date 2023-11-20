@@ -46,6 +46,7 @@ const AddEmployee = () => {
       });
   }, []);
 
+  //Future Date disable
   const getCurrentDate = () => {
     const now = new Date();
     const year = now.getFullYear();
@@ -54,16 +55,16 @@ const AddEmployee = () => {
     return `${year}-${month}-${day}`;
   };
 
-  // const getMinDate = () => {
+  //Company Age
+  const getMinDate = () => {
+    const companyAge = new Date();
+    companyAge.setFullYear(companyAge.getFullYear() - 10);
 
-  // const eighteenYearsAgo = new Date();
-  // eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
-
-  // const year = eighteenYearsAgo.getFullYear();
-  // const month = String(eighteenYearsAgo.getMonth() + 1).padStart(2, "0");
-  // const day = String(eighteenYearsAgo.getDate()).padStart(2, "0");
-  // return `${year}-${month}-${day}`;
-  // };
+    const year = companyAge.getFullYear();
+    const month = String(companyAge.getMonth() + 1).padStart(2, "0");
+    const day = String(companyAge.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
   useEffect(() => {
     const currentDate = new Date();
@@ -209,6 +210,7 @@ const AddEmployee = () => {
                       selected={hiredDate}
                       onChange={(date) => setHiredDate(date)}
                       max={getCurrentDate()}
+                      min={getMinDate()}
                     />
                     <label>Select a DOB:</label>
                     <input
@@ -218,7 +220,6 @@ const AddEmployee = () => {
                       selected={dob}
                       onChange={(date) => setDob(date)}
                       max={getCurrentDate()}
-                      // min={getMinDate()}
                     />
                     {!isAgeValid && (
                       <p>Employee must be at least 18 years old.</p>
