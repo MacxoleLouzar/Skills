@@ -8,9 +8,12 @@ const DepartmentCp = ({ dept }) => {
   const { updateDepartment, removeDepartment, setDeptId } =
     useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
+  const [selectedEmployeeDept, setSelectedEmployeeDept] = useState({
+    dept_id: null,
+    dept_name: null,
+    dept_address: null,
+  });
   const navigate = useNavigate();
-  const [deptName, setDepartmentName] = useState("");
-  const [deptAddress, setDeptAddress] = useState("");
 
   const handleDelete = (id) => {
     try {
@@ -31,8 +34,11 @@ const DepartmentCp = ({ dept }) => {
 
   const showUpdateModal = (department) => {
     const { dept_id, dept_name, dept_address } = department;
-    setDepartmentName(dept_name);
-    setDeptAddress(dept_address);
+
+    setSelectedEmployeeDept({ dept_id, dept_name, dept_address });
+
+    console.log(department);
+
     setDeptId(dept_id);
     setShowModal(true);
   };
@@ -68,10 +74,12 @@ const DepartmentCp = ({ dept }) => {
           </td>
         </tr>
         {showModal && (
-          <div>
-            {" "}
-            <UpdateDepartment id={dept?.dept_id} />{" "}
-          </div>
+          <UpdateDepartment
+            id={dept?.dept_id}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            selectedEmployeeDept={ selectedEmployeeDept}
+          />
         )}
       </div>
     </>
