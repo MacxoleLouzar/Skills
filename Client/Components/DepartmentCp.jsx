@@ -7,6 +7,7 @@ import UpdateDepartment from "./UpdateDepartment";
 const DepartmentCp = ({ dept }) => {
   const { updateDepartment, removeDepartment, setDeptId } =
     useContext(AppContext);
+
   const [showModal, setShowModal] = useState(false);
   const [selectedEmployeeDept, setSelectedEmployeeDept] = useState({
     dept_id: null,
@@ -34,11 +35,8 @@ const DepartmentCp = ({ dept }) => {
 
   const showUpdateModal = (department) => {
     const { dept_id, dept_name, dept_address } = department;
-
     setSelectedEmployeeDept({ dept_id, dept_name, dept_address });
-
     console.log(department);
-
     setDeptId(dept_id);
     setShowModal(true);
   };
@@ -78,7 +76,7 @@ const DepartmentCp = ({ dept }) => {
             id={dept?.dept_id}
             showModal={showModal}
             setShowModal={setShowModal}
-            selectedEmployeeDept={ selectedEmployeeDept}
+            selectedEmployeeDept={selectedEmployeeDept}
           />
         )}
       </div>

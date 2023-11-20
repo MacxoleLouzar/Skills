@@ -3,27 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AppContext from "../Context/AppContext";
 
-const UpdatePosition = () => {
+const UpdatePosition = ({ showModal, setShowModal, selectePosition }) => {
   const { addPosition, deptId } = useContext(AppContext);
-  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-  const [posName, setPositionName] = useState("");
-  const [posDesc, setPosDesc] = useState("");
-  // const { id } = useParams();
-
-  // useEffect(() => {
-  //   // Fetch department details using the id parameter
-  //   fetch(`http://localhost:1001/api/dep/${id}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setDepartmentName(data.deptName);
-  //       setDeptAddress(data.deptAddress);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error, "Something went wrong, try again");
-  //     });
-  // }, [id]);
+  const [posName, setPositionName] = useState(selectePosition.pos_name);
+  const [posDesc, setPosDesc] = useState(selectePosition.pos_descrption);
 
   const handleUpdatePosition = () => {
     try {
@@ -61,14 +46,8 @@ const UpdatePosition = () => {
   };
 
   return (
-    <div>
-      <button
-        className="btn btn-circle btn-caution fixed right-2 bottom-[50%] animate shadow-lg"
-        onClick={() => setShowModal(true)}
-      ></button>
-
-      {showModal ? (
-        <>
+      showModal && (
+        <div>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-6xl">
               {/*content*/}
@@ -128,9 +107,9 @@ const UpdatePosition = () => {
             </div>
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </>
-      ) : null}
-    </div>
-  );
+      
+     </div>
+    )
+  )
 };
 export default UpdatePosition;

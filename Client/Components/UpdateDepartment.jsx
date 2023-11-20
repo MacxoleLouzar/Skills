@@ -18,14 +18,6 @@ const UpdateDepartment = ({
     selectedEmployeeDept.dept_address
   );
 
-  // const showUpdateModal = (depart) => {
-  //   const { dept_id, dept_name, dept_address } = depart;
-  //   setDepartmentName(dept_name);
-  //   setDeptAddress(dept_address);
-  //   setDeptId(dept_id);
-  //   setShowModal(true);
-  // };
-
   const handleUpdate = () => {
     try {
       if (!deptName || !deptAddress) {

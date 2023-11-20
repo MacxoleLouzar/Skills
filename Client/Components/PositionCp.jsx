@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AppContext from "../Context/AppContext";
 import UpdatePosition from "./UpdatePosition";
@@ -7,9 +6,12 @@ import UpdatePosition from "./UpdatePosition";
 const PositionCp = ({ job }) => {
   const { removePosition, setDeptId } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
-  const [posName, setPositionName] = useState("");
-  const [posDesc, setPosDesc] = useState("");
+
+  const [selectePosition, setSelectedPosition] = useState({
+    pos_id: null,
+    pos_name: null,
+    pos_descrption: null,
+  });
 
   const handleDelete = (id) => {
     try {
@@ -31,8 +33,8 @@ const PositionCp = ({ job }) => {
 
   const showUpdateModal = (position) => {
     const { pos_id, pos_name, pos_descrption } = position;
-    setPositionName(pos_name);
-    setPosDesc(pos_descrption);
+    setSelectedPosition({ pos_id, pos_name, pos_descrption });
+    console.log(position);
     setDeptId(pos_id);
     setShowModal(true);
   };
@@ -62,7 +64,16 @@ const PositionCp = ({ job }) => {
           </div>
         </td>
       </tr>
-      <div>{showModal && <UpdatePosition />}</div>
+      <div>
+        {showModal && (
+          <UpdatePosition
+            id={job?.pos_id}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            selectePosition={selectePosition}
+          />
+        )}
+      </div>
     </>
   );
 };
