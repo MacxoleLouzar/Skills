@@ -4,6 +4,8 @@ const JobsModel = require("../Model/JobRolesModel");
 const AddEmployeeCtrl = async (req, res) => {
   const emp = req.body;
 
+
+
   try {
     const employee = await EmployeeModel.CreateEmployeeModel(emp);
     res

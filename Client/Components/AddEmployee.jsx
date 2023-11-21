@@ -6,6 +6,7 @@ import AppContext from "../Context/AppContext";
 
 const AddEmployee = () => {
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
   const {
     employees,
     departments,
@@ -14,7 +15,6 @@ const AddEmployee = () => {
     addEmployee,
     addPosition,
   } = useContext(AppContext);
-  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -33,6 +33,10 @@ const AddEmployee = () => {
         console.log(data.data);
         addDepartment(data.data);
         setSelectedDepartment(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Error fetching departments");
       });
   }, []);
 
@@ -43,6 +47,10 @@ const AddEmployee = () => {
         console.log(data.data);
         addPosition(data.data);
         setSelectedPosition(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Error fetching positions");
       });
   }, []);
 
@@ -74,38 +82,79 @@ const AddEmployee = () => {
     setIsAgeValid(age > 18);
   }, [dob]);
 
-  const onAddEmployee = () => {
-    if (!name || !surname || !email) {
-      toast.error("NAME, SURNAME, EMAIL these fields are required");
-      return;
-    }
-    let data = {
-      emp_name: name,
-      emp_surname: surname,
-      emp_dob: dob,
-      emp_email: email,
-      emp_hireddate: hiredDate,
-      emp_salary: salary,
-      dept_id: selectedDepartment,
-      pos_id: selectedPosition,
-    };
+  const onAddEmployee = async () => {
+    try {
+      if (!name || !surname || !email) {
+        toast.error("NAME, SURNAME, EMAIL these fields are required");
+        return;
+      }
+      let data = {
+        emp_name: name,
+        emp_surname: surname,
+        emp_dob: dob.toISOString(),
+        emp_email: email,
+        emp_hireddate: hiredDate.toISOString(),
+        emp_salary: salary,
+        dept_id: selectedDepartment,
+        pos_id: selectedPosition,
+      };
 
-    fetch("http://localhost:1001/api/emp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((serverData) => {
-        console.log(serverData);
-        toast.success("Employee Added");
-        setShowModal(false);
-      })
-      .catch((error) => {
-        console.log(error);
+      let data2 = {
+        name: "testing",
+      };
+
+      const response = await fetch("http://localhost:1001/api/emp", {
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
+
+      response
+        .json()
+        .then((data) => {
+          console.log(data);
+          setShowModal(false);
+          navigate("/dash/dash/employees");
+        })
+        .catch((error) => console.log(error));
+
+      // const result = await response.json();
+      // console.log("Success:", result);
+
+      // fetch("server/api/emp", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(data2),
+      // })
+      //   .then((response) => response.json())
+      //   .then((serverData) => {
+
+      //     if (serverData?.error) {
+      //       toast.error(serverData.error);
+      //       return;
+      //     }
+      //     addEmployee(serverData);
+      //     console.log(serverData);
+      //     toast.success("Employee Added");
+      //     setShowModal(false);
+      //     navigate("/dash/dash/employees");
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     toast.error(
+      //       "kjhghjklkjhghjkjhgfAn error occurred while adding the employee. Please try again later."
+      //     );
+      //   });
+    } catch (error) {
+      toast.error(
+        "An error occurred while adding the employee. Please try again later."
+      );
+      console.log(error);
+    }
   };
 
   return (
@@ -208,7 +257,7 @@ const AddEmployee = () => {
                       placeholder="Hired Date"
                       className="input input-bordered w-full max-w-xs"
                       selected={hiredDate}
-                      onChange={(date) => setHiredDate(date)}
+                      onChange={(e) => setHiredDate(new Date(e.target.value))}
                       max={getCurrentDate()}
                       min={getMinDate()}
                     />
@@ -218,7 +267,7 @@ const AddEmployee = () => {
                       placeholder="D.O.B"
                       className="input input-bordered w-full max-w-xs"
                       selected={dob}
-                      onChange={(date) => setDob(date)}
+                      onChange={(e) => setDob(new Date(e.target.value))}
                       max={getCurrentDate()}
                     />
                     {!isAgeValid && (

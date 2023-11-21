@@ -2,7 +2,7 @@ const connect = require("../DB/DbConnect");
 
 const CreateEmployeeModel = async (empData) => {
   const query =
-    "Insert into Employees(emp_name, emp_surname,emp_dob, emp_email,emp_hireddate,emp_salary, dept_id, pos_id) VALUES($1, $2, $3, $4, $5, $6,$7,$8) RETURNING *";
+    "Insert into Employees(emp_name, emp_surname,emp_dob, emp_email,emp_hireddate,emp_salary, dept_id, pos_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *";
   const values = [
     empData.emp_name,
     empData.emp_surname,
@@ -46,14 +46,14 @@ const GetSingleEmployeeModel = async (empId) => {
 
 const UpdateEmployeeModel = async (empId, updateEmp) => {
   const query =
-    "UPDATE Employees SET emp_name = $1, emp_surnme = $2, emp_DOB = $3, emp_email = $4, emp_hired_date = $5, emp_Salary = $6, dept_id = $7, pos_id = $8 WHERE emp_id = $9 RETURNING *";
+    "UPDATE Employees SET emp_name = $1, emp_surname = $2, emp_dob = $3, emp_email = $4, emp_hireddate = $5, emp_salary = $6, dept_id = $7, pos_id = $8 WHERE emp_id = $9 RETURNING *";
   const values = [
     updateEmp.emp_name,
-    updateEmp.emp_surnme,
-    updateEmp.emp_DOB,
+    updateEmp.emp_surname,
+    updateEmp.emp_dob,
     updateEmp.emp_email,
-    updateEmp.emp_hired_date,
-    updateEmp.emp_Salary,
+    updateEmp.emp_hireddate,
+    updateEmp.emp_salary,
     updateEmp.dept_id,
     updateEmp.pos_id,
     empId,

@@ -36,7 +36,7 @@ const AddDepartment = () => {
           return;
         }
         addDepartment(data);
-        navigate("/departments");
+        navigate("/dash/dash/departments");
         toast.success("Succeesful Added");
       })
       .catch((error) => {

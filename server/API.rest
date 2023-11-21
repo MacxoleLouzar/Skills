@@ -58,7 +58,7 @@ Content-Type: application/json
 DELETE {{host}}/api/job/8
 
 ####============================ Employee =========================================
-GET {{host}}/api/emp
+GET {{host}}/api/emp/
 
 ### Get Employee
 GET {{host}}/api/emp/3
@@ -68,12 +68,12 @@ POST {{host}}/api/emp
 Content-Type: application/json
 
 {
-    "emp_name": "Aphelele",
-    "emp_surname": "Fassi",
-    "emp_dob": "2000-12-01T10:00:00Z",
-    "emp_email": "zoe@gmail.com",
-    "emp_hireddate": "2021-10-31T10:00:00Z",
-    "emp_dalary": "28000.00",
+    "emp_name": "Joe",
+    "emp_surname": "Jezel",
+    "emp_dob": "2001-12-01T10:00:00Z",
+    "emp_email": "jooo@gmail.com",
+    "emp_hireddate": "2023-10-31T10:00:00Z",
+    "emp_salary": "48000.00",
     "dept_id": 3,
     "pos_id": 2
 }
@@ -87,7 +87,7 @@ Content-Type: application/json
     "emp_dob": "2000-12-01T10:00:00Z",
     "emp_email": "zoe@gmail.com",
     "emp_hireddate": "2021-10-31T10:00:00Z",
-    "emp_dalary": "28000.00",
+    "emp_salary": "28000.00",
     "dept_id": 3,
     "pos_id": 2
 }

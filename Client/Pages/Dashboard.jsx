@@ -9,12 +9,10 @@ const Dashboard = () => {
       <div className="container">
         <div className="dash">
           <div className="dashNav">
-            <Link to="dash/employees">Employeess</Link>
+            <Link to="dash/employees">Employees</Link>
             <Link to="dash/departments">Departments</Link>
-            <Link to="dash/positions">Position</Link>
-            <Link to={"/dash"}>
-              Reload
-            </Link>
+            <Link to="dash/positions">Positions</Link>
+            <Link to={"/dash"}>Reload</Link>
           </div>
           <Outlet />
         </div>

@@ -35,7 +35,7 @@ const AddPosition = () => {
         }
         addPositing(data);
         toast.success("Succeesful Added");
-        navigate("/positions");
+        navigate("/dash/dash/positions");
       })
       .catch((error) => console.log(error));
   };

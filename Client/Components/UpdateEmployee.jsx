@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { toast } from "react-toastify";
 import AppContext from "../Context/AppContext";
 
 const UpdateEmployee = ({ showModal, setShowModal, selectEmplyee }) => {
@@ -17,10 +18,28 @@ const UpdateEmployee = ({ showModal, setShowModal, selectEmplyee }) => {
   );
   const [hiredDate, setHiredDate] = useState(new Date());
   const [dob, setDob] = useState(new Date());
+  const [isAgeValid, setIsAgeValid] = useState(true);
+  //Future Date disable
+  const getCurrentDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+  //Company Age
+  const getMinDate = () => {
+    const companyAge = new Date();
+    companyAge.setFullYear(companyAge.getFullYear() - 10);
 
+    const year = companyAge.getFullYear();
+    const month = String(companyAge.getMonth() + 1).padStart(2, "0");
+    const day = String(companyAge.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
   const handleUpdate = () => {
     try {
-      if (!deptName || !deptAddress) {
+      if (!name || !surname || !email) {
         toast.error("All fields are required");
       } else {
         let data = {
@@ -39,13 +58,13 @@ const UpdateEmployee = ({ showModal, setShowModal, selectEmplyee }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify({ data }),
         })
           .then((res) => res.json())
           .then((data) => {
             data.data;
             console.log(data.data);
-            updateEmployee(data.data);
+            updateEmployee(data);
             toast.success("Data Updated");
             setShowModal(false);
           })
@@ -178,7 +197,7 @@ const UpdateEmployee = ({ showModal, setShowModal, selectEmplyee }) => {
                   </button>
                   <button
                     className="btn btn-sm btn-neutral"
-                    onClick={onAddEmployee}
+                    onClick={handleUpdate}
                   >
                     Submit
                   </button>

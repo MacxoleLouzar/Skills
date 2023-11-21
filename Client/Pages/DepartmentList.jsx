@@ -8,7 +8,7 @@ const DepartmentList = () => {
   const { departments, addDepartment } = useContext(AppContext);
   const departmentList = Array.isArray(departments) ? departments : [];
   useEffect(() => {
-    fetch("http://localhost:1001/api/dep")
+    fetch("server/api/dep")
       .then((res) => res.json())
       .then((data) => addDepartment(data.data))
       .catch((error) => console.log(error));
