@@ -78,18 +78,18 @@ Content-Type: application/json
     "pos_id": 2
 }
 ### Edit Employee
-PUT {{host}}/api/emp/5
+PUT {{host}}/api/emp/1
 Content-Type: application/json
 
 {
-    "emp_name": "Aphelele",
-    "emp_surname": "Fassi",
-    "emp_dob": "2000-12-01T10:00:00Z",
-    "emp_email": "zoe@gmail.com",
-    "emp_hireddate": "2021-10-31T10:00:00Z",
-    "emp_salary": "28000.00",
-    "dept_id": 3,
-    "pos_id": 2
+      "emp_name": "Zolani Zoe",
+      "emp_surname": "James",
+      "emp_email": "jz@gmail.com",
+      "emp_salary": "68000.00",
+      "dept_id": 3,
+      "pos_id": 1,
+      "emp_dob": "2000-11-30T22:00:00.000Z",
+      "emp_hireddate": "2021-10-30T22:00:00.000Z"
 }
 ### Delete Employee
 DELETE http://localhost:1001/api/emp/10

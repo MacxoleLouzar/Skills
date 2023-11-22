@@ -99,10 +99,6 @@ const AddEmployee = () => {
         pos_id: selectedPosition,
       };
 
-      let data2 = {
-        name: "testing",
-      };
-
       const response = await fetch("http://localhost:1001/api/emp", {
         method: "POST", // or 'PUT'
         headers: {

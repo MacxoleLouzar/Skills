@@ -7,6 +7,7 @@ const AppState = ({ children }) => {
   const [departments, setDepartment] = useState([]);
   const [positions, setPosition] = useState([]);
   const [deptId, setDeptId] = useState(0);
+  const [empId, setEmpId] = useState(0);
 
   const addEmployee = (emp) => {
     setEmployee(emp);
@@ -47,7 +48,9 @@ const AppState = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        empId,
         admin,
+        setEmpId,
         employees,
         addEmployee,
         updateAdmin,

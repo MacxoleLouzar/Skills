@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AppContext from "../Context/AppContext";
 
 const UpdateEmployee = ({ showModal, setShowModal, selectEmplyee }) => {
-  const { updateEmployee, deptId, departments, positions } =
-    useContext(AppContext);
+  const { updateEmployee, departments, positions } = useContext(AppContext);
+  const [empId, setEmpId] = useState(selectEmplyee.emp_id);
 
+  const navigate = useNavigate();
   const [name, setName] = useState(selectEmplyee.emp_name);
   const [surname, setSurname] = useState(selectEmplyee.emp_surname);
   const [email, setEmail] = useState(selectEmplyee.emp_email);
@@ -37,41 +39,39 @@ const UpdateEmployee = ({ showModal, setShowModal, selectEmplyee }) => {
     const day = String(companyAge.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     try {
       if (!name || !surname || !email) {
         toast.error("All fields are required");
-      } else {
-        let data = {
-          emp_name: name,
-          emp_surname: surname,
-          emp_email: email,
-          emp_salary: salary,
-          dept_id: selectedDepartment,
-          pos_id: selectedPosition,
-          emp_dob: dob,
-          emp_hireddate: hiredDate,
-        };
-
-        fetch(`http://localhost:1001/api/emp/${deptId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ data }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            data.data;
-            console.log(data.data);
-            updateEmployee(data);
-            toast.success("Data Updated");
-            setShowModal(false);
-          })
-          .catch((error) => {
-            console.log(error, "Something went wrong, try again");
-          });
+        return;
       }
+      let data = {
+        emp_name: name,
+        emp_surname: surname,
+        emp_email: email,
+        emp_salary: salary,
+        dept_id: selectedDepartment,
+        pos_id: selectedPosition,
+        emp_dob: dob.toISOString(),
+        emp_hireddate: hiredDate.toISOString(),
+      };
+
+      fetch(`http://localhost:1001/api/emp/${empId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.data);
+          updateEmployee(data);
+          toast.success("Data Updated");
+          setShowModal(false);
+          navigate("/dash/dash/employees");
+        })
+        .catch((error) => console.log(error));
     } catch (error) {
       toast.error("Couldn't update, something went wrong");
       console.log(error);
@@ -168,7 +168,7 @@ const UpdateEmployee = ({ showModal, setShowModal, selectEmplyee }) => {
                     placeholder="Hired Date"
                     className="input input-bordered w-full max-w-xs"
                     selected={hiredDate}
-                    onChange={(date) => setHiredDate(date)}
+                    onChange={(e) => setHiredDate(new Date(e.target.value))}
                     max={getCurrentDate()}
                     min={getMinDate()}
                   />
@@ -178,7 +178,7 @@ const UpdateEmployee = ({ showModal, setShowModal, selectEmplyee }) => {
                     placeholder="D.O.B"
                     className="input input-bordered w-full max-w-xs"
                     selected={dob}
-                    onChange={(date) => setDob(date)}
+                    onChange={(e) => setDob(new Date(e.target.value))}
                     max={getCurrentDate()}
                   />
                   {!isAgeValid && (

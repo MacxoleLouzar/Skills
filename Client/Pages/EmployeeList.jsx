@@ -5,6 +5,7 @@ import AppContext from "../Context/AppContext";
 
 const EmployeeList = () => {
   const { employees, addEmployee } = useContext(AppContext);
+  const EmployeeList = Array.isArray(employees) ? employees : [];
   useEffect(() => {
     fetch("http://localhost:1001/api/emp")
       .then((res) => res.json())
@@ -14,8 +15,6 @@ const EmployeeList = () => {
       })
       .catch((error) => console.log(error));
   }, []);
-
-  console.log(employees);
   return (
     <div>
       <AddEmployee />
@@ -86,7 +85,7 @@ const EmployeeList = () => {
                   </thead>
 
                   <tbody className="">
-                    {employees?.map((emp, index) => (
+                    {EmployeeList?.map((emp, index) => (
                       <EmployeesCp key={index} emp={emp} />
                     ))}
                   </tbody>
