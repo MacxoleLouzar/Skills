@@ -62,7 +62,6 @@ GET {{host}}/api/emp/
 
 ### Get Employee
 GET {{host}}/api/emp/3
-
 ### Add a Employee
 POST {{host}}/api/emp
 Content-Type: application/json
@@ -82,7 +81,7 @@ PUT {{host}}/api/emp/1
 Content-Type: application/json
 
 {
-      "emp_name": "Zolani Zoe",
+      "emp_name": "Zolani Zo",
       "emp_surname": "James",
       "emp_email": "jz@gmail.com",
       "emp_salary": "68000.00",

@@ -1,18 +1,31 @@
 const EmployeeModel = require("../Model/EmployeeModel");
 const JobsModel = require("../Model/JobRolesModel");
 
+
+//  {
+//     "emp_id": 3,
+//     "emp_name": "Aphelele",
+//     "emp_surname": "Fassi",
+//     "emp_email": "fassi@gmail.com",
+//     "emp_salary": "80000.00",
+//     "dept_id": 3,
+//     "pos_id": 2,
+//     "emp_dob": "2000-11-30T22:00:00.000Z",
+//     "emp_hireddate": "2021-10-30T22:00:00.000Z"
+//   },
 const AddEmployeeCtrl = async (req, res) => {
   const emp = req.body;
-
-
-
   try {
+    // const employeeExist = await EmployeeModel.findOne({ emp});
+    // if (employeeExist) {
+    //   return res.json({ error: "User already exist" });
+    // }
     const employee = await EmployeeModel.CreateEmployeeModel(emp);
     res
       .status(201)
       .json({ data: employee, message: "Employee added succeessful" });
   } catch (error) {
-    res.status(500).json({ message: "Error creating employee", error });
+    res.status(500).json({ message: "Error creating employee", error: error });
   }
 };
 
