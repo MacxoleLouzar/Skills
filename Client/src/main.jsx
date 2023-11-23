@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SearchEmployee from "../Components/searchEmployee";
 import AppState from "../Context/AppState";
 import Dashboard from "../Pages/Dashboard";
 import DepartmentList from "../Pages/DepartmentList";
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "dash/positions",
         element: <PositionsList />,
+      },
+      {
+        path: "dash/search",
+        element: <SearchEmployee />,
       },
     ],
   },

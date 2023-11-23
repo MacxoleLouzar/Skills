@@ -17,6 +17,10 @@ const AppState = ({ children }) => {
     setEmployee(data);
   };
 
+    const findEmployee = (emp) => {
+      let employee = employees.filter((x) => x._id === emp.id);
+      setEmployee(employee);
+    };
   const removeEmployee = (emp) => {
     let employee = employees.filter((x) => x._id !== emp.id);
     setEmployee(employee);
@@ -65,6 +69,7 @@ const AppState = ({ children }) => {
         removePosition,
         deptId,
         setDeptId,
+        findEmployee,
       }}
     >
       {children}

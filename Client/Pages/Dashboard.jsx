@@ -9,6 +9,7 @@ const Dashboard = () => {
       <div className="container">
         <div className="dash">
           <div className="dashNav">
+            <Link to="dash/search">Search</Link>
             <Link to="dash/employees">Employees</Link>
             <Link to="dash/departments">Departments</Link>
             <Link to="dash/positions">Positions</Link>
