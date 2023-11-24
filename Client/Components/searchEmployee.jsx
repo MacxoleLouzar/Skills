@@ -12,20 +12,20 @@ const searchEmployee = () => {
       .then((response) => response.json())
       .then((data) => {
         //setEmployee(data);
-        addEmployee(data);
-        console.log(data);
+        addEmployee(data.data);
+        console.log(data.data);
       })
       .catch((error) => console.error("Error fetching employees:", error));
   }, []);
 
   const handleSearch = () => {
-    let employeesArray = Array.isArray(employees) ? employees : [];
-    const name = employeesArray.find((empname) => {
-      return (
-        empname.emp_name === employeeName || empname.emp_email === employeeName
-      );
-    });
-    setSelectedEmployee(name);
+    const searchArray = employees.filter(
+      (employee) =>
+        employee.emp_name.toLowerCase() == employeeName.toLowerCase() &&
+        employee
+    );
+    console.log(searchArray);
+    setSelectedEmployee(searchArray);
   };
 
   return (
@@ -44,7 +44,7 @@ const searchEmployee = () => {
           Search
         </button>
       </div>
-      {selectedEmployee && (<EmployeesCp />)}
+      {selectedEmployee && <EmployeesCp />}
     </div>
   );
 };
