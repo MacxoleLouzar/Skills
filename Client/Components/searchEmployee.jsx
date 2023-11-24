@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import AppContext from "../Context/AppContext";
+import EmployeesCp from "./EmployeesCp";
 
 const searchEmployee = () => {
-  const { findEmployee, addEmployee } = useContext(AppContext);
+  const { addEmployee, setEmployee, employees } = useContext(AppContext);
   const [employeeName, setEmployeeName] = useState("");
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
@@ -10,6 +11,7 @@ const searchEmployee = () => {
     fetch("http://localhost:1001/api/emp")
       .then((response) => response.json())
       .then((data) => {
+        //setEmployee(data);
         addEmployee(data);
         console.log(data);
       })
@@ -17,7 +19,7 @@ const searchEmployee = () => {
   }, []);
 
   const handleSearch = () => {
-    const name = findEmployee.find((empname) => {
+    const name = employees.find((empname) => {
       return (
         empname.emp_name === employeeName || empname.emp_email === employeeName
       );
@@ -42,7 +44,7 @@ const searchEmployee = () => {
           Search
         </button>
       </div>
-      {selectedEmployee && console.log("working.........!!!")}
+      {selectedEmployee && <EmployeesCp />}
     </div>
   );
 };
