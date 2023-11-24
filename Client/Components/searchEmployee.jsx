@@ -19,7 +19,8 @@ const searchEmployee = () => {
   }, []);
 
   const handleSearch = () => {
-    const name = employees.find((empname) => {
+    let employeesArray = Array.isArray(employees) ? employees : [];
+    const name = employeesArray.find((empname) => {
       return (
         empname.emp_name === employeeName || empname.emp_email === employeeName
       );
@@ -39,12 +40,11 @@ const searchEmployee = () => {
             onChange={(e) => setEmployeeName(e.target.value)}
           />
         </div>
-
         <button className="btn btn-neutral" onClick={handleSearch}>
           Search
         </button>
       </div>
-      {selectedEmployee && <EmployeesCp />}
+      {selectedEmployee && (<EmployeesCp />)}
     </div>
   );
 };
