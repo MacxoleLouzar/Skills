@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import AppContext from "../Context/AppContext";
-import EmployeesCp from "./EmployeesCp";
 
-const searchEmployee = () => {
-  const { addEmployee, setEmployee, employees } = useContext(AppContext);
+const searchEmployee = ({ emp }) => {
+  const { addEmployee, employees } = useContext(AppContext);
   const [employeeName, setEmployeeName] = useState("");
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [selectedEmployee, setSelectedEmployee] = useState({});
 
   useEffect(() => {
     fetch("http://localhost:1001/api/emp")
       .then((response) => response.json())
       .then((data) => {
-        //setEmployee(data);
         addEmployee(data.data);
         console.log(data.data);
       })
@@ -21,7 +19,7 @@ const searchEmployee = () => {
   const handleSearch = () => {
     const searchArray = employees.filter(
       (employee) =>
-        employee.emp_name.toLowerCase() == employeeName.toLowerCase() &&
+        employee.emp_name.toLowerCase() === employeeName.toLowerCase() &&
         employee
     );
     console.log(searchArray);
@@ -43,8 +41,59 @@ const searchEmployee = () => {
         <button className="btn btn-neutral" onClick={handleSearch}>
           Search
         </button>
+        <br></br>
       </div>
-      {selectedEmployee && <EmployeesCp />}
+      {selectedEmployee.length > 0 && (
+        <div>
+          <table>
+            <tbody>
+              <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-base-200 flex">
+                <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
+                  {selectedEmployee[0].emp_name}
+                </td>
+                <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
+                  {selectedEmployee[0]?.emp_surname}
+                </td>
+                <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
+                  {selectedEmployee[0]?.emp_email}
+                </td>
+                <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
+                  {selectedEmployee[0]?.emp_salary}
+                </td>
+                <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
+                  {selectedEmployee[0]?.dept_id}
+                </td>
+                <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
+                  {selectedEmployee[0]?.pos_id}
+                </td>
+                <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
+                  {selectedEmployee[0]?.emp_hireddate}
+                </td>
+                <td className="text-sm font-light px-6 py-4 whitespace-nowrap flex-1">
+                  {selectedEmployee[0]?.emp_dob}
+                </td>
+                <td className="text-sm px-6 py-4 whitespace-nowrap flex-1">
+                  <div className="btn-group">
+                    <button className="btn btn-sm">View</button>
+                    <button
+                      className="btn btn-sm"
+                      onClick={() => showUpdateModal(emp)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn btn-sm"
+                      onClick={() => handleDelete(emp?.emp_id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };
