@@ -17,19 +17,22 @@ const DepartmentCp = ({ dept }) => {
   const navigate = useNavigate();
 
   const handleDelete = (id) => {
-    try {
-      fetch(`http://localhost:1001/api/dep/${id}`, {
-        method: "DELETE",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          removeDepartment(data);
-          toast.success("Succeesful Deleted");
-          navigate("/dash/dash/departments");
+    const shouldDelete = window.confirm("Are you sure you want to delete?");
+    if (shouldDelete) {
+      try {
+        fetch(`http://localhost:1001/api/dep/${id}`, {
+          method: "DELETE",
         })
-        .catch((error) => setError(error));
-    } catch (error) {
-      toast.error("something wrong try again later", error);
+          .then((response) => response.json())
+          .then((data) => {
+            removeDepartment(data);
+            toast.success("Succeesful Deleted");
+            navigate("/dash/dash/departments");
+          })
+          .catch((error) => setError(error));
+      } catch (error) {
+        toast.error("something wrong try again later", error);
+      }
     }
   };
 

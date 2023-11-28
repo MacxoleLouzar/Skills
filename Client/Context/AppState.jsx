@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppContext from "./AppContext";
 
 const AppState = ({ children }) => {
@@ -8,6 +8,7 @@ const AppState = ({ children }) => {
   const [positions, setPosition] = useState([]);
   const [deptId, setDeptId] = useState(0);
   const [empId, setEmpId] = useState(0);
+  const [isAuthenticated, setAuthenticated] = useState(false);
 
   const addEmployee = (emp) => {
     setEmployee(emp);
@@ -17,10 +18,10 @@ const AppState = ({ children }) => {
     setEmployee(data);
   };
 
-    const findEmployee = (emp) => {
-      let employee = employees.filter((x) => x._id === emp.id);
-      setEmployee(employee);
-    };
+  const findEmployee = (emp) => {
+    let employee = employees.filter((x) => x._id === emp.id);
+    setEmployee(employee);
+  };
   const removeEmployee = (emp) => {
     let employee = employees.filter((x) => x._id !== emp.id);
     setEmployee(employee);

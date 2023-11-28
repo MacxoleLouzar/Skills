@@ -18,18 +18,20 @@ const EmployeesCp = ({ emp }) => {
   });
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:1001/api/emp/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        removeEmployee(data);
-        toast.success("Succeesful Deleted");
-        navigate("/employees");
+    const shouldDelete = window.confirm("Are you sure you want to delete?");
+    if (shouldDelete) {
+      fetch(`http://localhost:1001/api/emp/${id}`, {
+        method: "DELETE",
       })
-      .catch((error) => console.log(error));
-  };
-
+        .then((response) => response.json())
+        .then((data) => {
+          removeEmployee(data);
+          toast.success("Succeesful Deleted");
+          navigate("/employees");
+        })
+        .catch((error) => console.log(error));
+    };
+  }
   const showUpdateModal = (employee) => {
     const {
       emp_id,

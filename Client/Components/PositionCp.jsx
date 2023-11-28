@@ -14,23 +14,25 @@ const PositionCp = ({ job }) => {
   });
 
   const handleDelete = (id) => {
-    try {
-      fetch(`http://localhost:1001/api/job/${id}`, {
-        method: "DELETE",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          removePosition(data);
-          toast.success("Succeesful Deleted");
-          navigate("/dash/dash/positions");
+    const shouldDelete = window.confirm("Are you sure you want to delete?");
+    if (shouldDelete) {
+      try {
+        fetch(`http://localhost:1001/api/job/${id}`, {
+          method: "DELETE",
         })
-        .catch((error) => console.log(error));
-    } catch (error) {
-      toast.error("something wrong try again later", error);
-      console.log(error);
+          .then((response) => response.json())
+          .then((data) => {
+            removePosition(data);
+            toast.success("Succeesful Deleted");
+            navigate("/dash/dash/positions");
+          })
+          .catch((error) => console.log(error));
+      } catch (error) {
+        toast.error("something wrong try again later", error);
+        console.log(error);
+      }
     }
   };
-
   const showUpdateModal = (position) => {
     const { pos_id, pos_name, pos_descrption } = position;
     setSelectedPosition({ pos_id, pos_name, pos_descrption });
