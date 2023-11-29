@@ -1,26 +1,19 @@
 const EmployeeModel = require("../Model/EmployeeModel");
 const JobsModel = require("../Model/JobRolesModel");
+const connectRabbitMQ = require("../AMQP/rabbitmq");
 
-
-//  {
-//     "emp_id": 3,
-//     "emp_name": "Aphelele",
-//     "emp_surname": "Fassi",
-//     "emp_email": "fassi@gmail.com",
-//     "emp_salary": "80000.00",
-//     "dept_id": 3,
-//     "pos_id": 2,
-//     "emp_dob": "2000-11-30T22:00:00.000Z",
-//     "emp_hireddate": "2021-10-30T22:00:00.000Z"
-//   },
 const AddEmployeeCtrl = async (req, res) => {
   const emp = req.body;
   try {
-    // const employeeExist = await EmployeeModel.findOne({ emp});
-    // if (employeeExist) {
-    //   return res.json({ error: "User already exist" });
-    // }
     const employee = await EmployeeModel.CreateEmployeeModel(emp);
+    const channel = await connectRabbitMQ();
+    const queue = "employee crreated";
+
+    await channel.assertQueue(queue, { durable: false });
+    const message = `New Employee added:  ${EmployeeModel.emp_name}`;
+
+    channel.sendToQueue(queue, Buffer.from(message));
+    console.log(`Sent message to ${queue}: ${message}`);
     res
       .status(201)
       .json({ data: employee, message: "Employee added succeessful" });
