@@ -8,7 +8,7 @@ const AddDepartmentCtrl = async (req, res) => {
     const department = await DepartmentModel.CreateDepartmentModel(dep);
     const { channel, exchange } = await connectRabbitMQ();
 
-    const queue = "Create Deoartment";
+    const queue = "Create Department";
     await channel.assertQueue(queue, { durable: false });
 
     await channel.bindQueue(queue, exchange, "");
@@ -70,6 +70,17 @@ const UpdateDepartmentCTRL = async (req, res) => {
   const dept = req.body;
   try {
     const department = await DepartmentModel.UpdateDepartmentModel(_id, dept);
+    const { channel, exchange } = await connectRabbitMQ();
+
+    const queue = "Update Department";
+    await channel.assertQueue(queue, { durable: false });
+
+    await channel.bindQueue(queue, exchange, "");
+
+    const message = `Department Updated: ${DepartmentModel.dept_name}`;
+    channel.publish(exchange, "", Buffer.from(message));
+
+    console.log(`Sent message to exchange ${exchange}: ${message}`);
     res.status(200).json({ data: department, message: "Updated successful" });
   } catch (error) {
     res.status(500).json({ message: "Error Getting Deptmemnt", error });
@@ -80,6 +91,17 @@ const DeleteDepartmentCTRL = async (req, res) => {
   const _id = req.params.id;
   try {
     await DepartmentModel.DeleteSingleDeptModel(_id);
+    const { channel, exchange } = await connectRabbitMQ();
+
+    const queue = "Remove Department";
+    await channel.assertQueue(queue, { durable: false });
+
+    await channel.bindQueue(queue, exchange, "");
+
+    const message = ` Department removed: ${DepartmentModel.dept_name}`;
+    channel.publish(exchange, "", Buffer.from(message));
+
+    console.log(`Sent message to exchange ${exchange}: ${message}`);
     res.status(200).json({ message: "Department Deleted" });
   } catch (error) {
     res.status(500).json({ message: "Error Getting Deptmemnt", error });
