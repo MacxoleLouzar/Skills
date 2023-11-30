@@ -1,10 +1,23 @@
 const DepartmentModel = require("../Model/DepartmentModel");
 const JobsModel = require("../Model/JobRolesModel");
+const connectRabbitMQ = require("../AMQP/rabbitmq");
 
 const AddDepartmentCtrl = async (req, res) => {
   const dep = req.body;
   try {
     const department = await DepartmentModel.CreateDepartmentModel(dep);
+    const { channel, exchange } = await connectRabbitMQ();
+
+    const queue = "Create Deoartment";
+    await channel.assertQueue(queue, { durable: false });
+
+    await channel.bindQueue(queue, exchange, "");
+
+    const message = `New Department added: ${DepartmentModel.dept_name}`;
+    channel.publish(exchange, "", Buffer.from(message));
+
+    console.log(`Sent message to exchange ${exchange}: ${message}`);
+
     res
       .status(200)
       .json({ data: department, message: "Department added succeessful" });
