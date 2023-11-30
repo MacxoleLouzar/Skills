@@ -7,7 +7,7 @@ const AddEmployeeCtrl = async (req, res) => {
   try {
     const employee = await EmployeeModel.CreateEmployeeModel(emp);
     const channel = await connectRabbitMQ();
-    const queue = "employee crreated";
+    const queue = "employee created";
 
     await channel.assertQueue(queue, { durable: false });
     const message = `New Employee added:  ${EmployeeModel.emp_name}`;
@@ -50,6 +50,14 @@ const UpdateEmployeeCTRL = async (req, res) => {
   const emp = req.body;
   try {
     const employee = await EmployeeModel.UpdateEmployeeModel(_id, emp);
+    const channel = await connectRabbitMQ();
+    const queue = "employee updated";
+
+    await channel.assertQueue(queue, { durable: false });
+    const message = `Employee updated:  ${EmployeeModel.emp_name}`;
+
+    channel.sendToQueue(queue, Buffer.from(message));
+    console.log(`Sent message to ${queue}: ${message}`);
     res
       .status(200)
       .json({ data: employee, message: "Employee Updated successful" });
@@ -62,6 +70,15 @@ const DeleteEmployeeCTRL = async (req, res) => {
   const _id = req.params.id;
   try {
     await EmployeeModel.DeleteSingleEmployeeModel(_id);
+    const channel = await connectRabbitMQ();
+    const queue = "employee Deleted";
+
+    await channel.assertQueue(queue, { durable: false });
+    const message = `Employee Deleted:  ${EmployeeModel.emp_name}`;
+
+    await channel.sendToQueue(queue, Buffer.from(message));
+    console.log(`Sent message to ${queue}: ${message}`);
+
     res.status(200).json({ message: "Employee Deleted" });
   } catch (error) {
     res.status(500).json({ message: "Error Getting employee", error });
